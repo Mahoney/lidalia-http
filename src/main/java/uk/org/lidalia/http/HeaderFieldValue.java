@@ -1,5 +1,5 @@
 package uk.org.lidalia.http;
 
-public class HeaderValue {
+public class HeaderFieldValue {
 
 }

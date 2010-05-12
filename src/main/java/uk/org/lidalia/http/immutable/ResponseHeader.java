@@ -14,7 +14,7 @@ public class ResponseHeader implements uk.org.lidalia.http.ResponseHeader {
 	
 	private final ResponseCode code;
 	private final String reason;
-	private final Headers headers;
+	private final HeaderFields headers;
 	
 	public ResponseHeader(String headerString) throws InvalidHeaderException {
 		try {
@@ -26,13 +26,13 @@ public class ResponseHeader implements uk.org.lidalia.http.ResponseHeader {
 			Validate.isTrue(reason.matches(""));
 			
 			String headersString = StringUtils.substringAfter(headerString, "\r\n");
-			headers = new Headers(headersString);
+			headers = new HeaderFields(headersString);
 		} catch (Exception e) {
 			throw new InvalidHeaderException(headerString, e);
 		}
 	}
 	
-	public ResponseHeader(ResponseCode code, String reason, Headers headers) {
+	public ResponseHeader(ResponseCode code, String reason, HeaderFields headers) {
 		this.code = code;
 		this.reason = reason;
 		this.headers = headers;
@@ -49,7 +49,7 @@ public class ResponseHeader implements uk.org.lidalia.http.ResponseHeader {
 	}
 	
 	@Override
-	public Headers getHeaders() {
+	public HeaderFields getHeaderFields() {
 		return headers;
 	}
 	
