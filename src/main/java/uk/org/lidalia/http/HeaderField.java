@@ -3,12 +3,19 @@ package uk.org.lidalia.http;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
 
-public abstract class HeaderField {
+public class HeaderField {
 	
 	protected final HeaderFieldType name;
-	protected final HeaderFieldValue value;
+	protected final Object value;
+	
+	public HeaderField(String headerString) {
+		String headerName = StringUtils.substringBefore(headerString, ":");
+		String headerValue = StringUtils.substringAfter(headerString, ":");
+		this.name = HeaderFieldTypeRegistry.get(headerName);
+		this.value = name.parseValue(headerValue);
+	}
 
-	public HeaderField(HeaderFieldType name, HeaderFieldValue value) {
+	public HeaderField(HeaderFieldType name, Object value) {
 		Validate.notNull(name, "HeaderName cannot be null");
 		Validate.notNull(value, "HeaderValue cannot be null");
 		this.name = name;
@@ -19,7 +26,7 @@ public abstract class HeaderField {
 		return name;
 	}
 	
-	public HeaderFieldValue getValue() {
+	public Object getValue() {
 		return value;
 	}
 	

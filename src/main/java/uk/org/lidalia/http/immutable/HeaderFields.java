@@ -11,12 +11,11 @@ import java.util.NoSuchElementException;
 import org.apache.commons.lang.Validate;
 
 import uk.org.lidalia.http.HeaderFieldType;
-import uk.org.lidalia.http.HeaderFieldValue;
 import uk.org.lidalia.http.HeaderField;
 
 public class HeaderFields implements uk.org.lidalia.http.HeaderFields {
 	
-	private final Map<HeaderFieldType, HeaderField> headers = Collections.unmodifiableMap(new LinkedHashMap<HeaderFieldType, HeaderField>());
+	private final Map<HeaderFieldType, HeaderField> headers = new LinkedHashMap<HeaderFieldType, HeaderField>();
 	
 	public HeaderFields(String headersString) {
 		this(parseHeaders(headersString));
@@ -26,9 +25,9 @@ public class HeaderFields implements uk.org.lidalia.http.HeaderFields {
 		String[] headerStrings = headersString.split("\r\n");
 		List<HeaderField> headers = new ArrayList<HeaderField>();
 		for (String headerString : headerStrings) {
-//			headers.add(new HeaderField(headerString));
+			headers.add(new HeaderField(headerString));
 		}
-		return (HeaderField[]) headers.toArray();
+		return (HeaderField[]) headers.toArray(new HeaderField[] {});
 	}
 
 	public HeaderFields(HeaderField... newHeaders) {
@@ -37,15 +36,15 @@ public class HeaderFields implements uk.org.lidalia.http.HeaderFields {
 		}
 	}
 
-	public HeaderFieldValue fetch(HeaderFieldType name) throws NoSuchElementException {
-		HeaderFieldValue value = get(name);
+	public Object fetch(HeaderFieldType name) throws NoSuchElementException {
+		Object value = get(name);
 		if (value == null) {
 			throw new NoSuchElementException("No header with name " + name + " in " + headers.values());
 		}
 		return value;
 	}
 
-	public HeaderFieldValue get(HeaderFieldType name) {
+	public Object get(HeaderFieldType name) {
 		Validate.notNull(name, "HeaderName cannot be null");
 		HeaderField header = headers.get(name);
 		return header != null ? header.getValue() : null;
@@ -53,7 +52,7 @@ public class HeaderFields implements uk.org.lidalia.http.HeaderFields {
 
 	@Override
 	public Iterator<HeaderField> iterator() {
-		return headers.values().iterator();
+		return Collections.unmodifiableCollection(headers.values()).iterator();
 	}
 	
 	@Override

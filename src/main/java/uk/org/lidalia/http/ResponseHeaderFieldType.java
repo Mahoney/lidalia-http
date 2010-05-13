@@ -1,8 +1,5 @@
 package uk.org.lidalia.http;
 
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
-
 public enum ResponseHeaderFieldType implements HeaderFieldType {
 
 	ACCEPT_RANGES("Accept-Ranges"),
@@ -13,7 +10,8 @@ public enum ResponseHeaderFieldType implements HeaderFieldType {
 	RETRY_AFTER("Retry-After"),
 	SERVER("Server"),
 	VARY("Vary"),
-	WWW_AUTHENTICATE("WWW-Authenticate");
+	WWW_AUTHENTICATE("WWW-Authenticate"),
+	SET_COOKIE("Set-Cookie");
 	
 	private final String name;
 
@@ -27,32 +25,12 @@ public enum ResponseHeaderFieldType implements HeaderFieldType {
 	}
 
 	@Override
-	public HeaderFieldValue getValue(String headerValue) {
-		return null;
+	public Object parseValue(String headerValue) {
+		return headerValue;
 	}
 
 	@Override
 	public String toString() {
 		return name;
-	}
-	
-	private static final ConcurrentMap<String, HeaderFieldType> types = new ConcurrentHashMap<String, HeaderFieldType>();
-	
-	static {
-		for (ResponseHeaderFieldType type : ResponseHeaderFieldType.values()) {
-			types.put(type.name, type);
-		}
-	}
-
-	public static HeaderFieldType get(String headerName) {
-		HeaderFieldType type = types.get(headerName);
-		if (type == null) {
-			type = new HeaderFieldType.UnknownHeaderFieldType(headerName);
-		}
-		return null;
-	}
-	
-	public static void registerResponseHeaderFieldType(HeaderFieldType newType) {
-		types.putIfAbsent(newType.getName(), newType);
 	}
 }

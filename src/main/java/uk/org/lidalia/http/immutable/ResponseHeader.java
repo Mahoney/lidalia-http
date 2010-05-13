@@ -7,7 +7,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
 
 import uk.org.lidalia.http.ResponseCode;
-import uk.org.lidalia.http.ResponseCodes;
+import uk.org.lidalia.http.ResponseCodeRegistry;
 import uk.org.lidalia.http.exception.InvalidHeaderException;
 
 public class ResponseHeader implements uk.org.lidalia.http.ResponseHeader {
@@ -21,11 +21,12 @@ public class ResponseHeader implements uk.org.lidalia.http.ResponseHeader {
 			String status = StringUtils.substringBefore(headerString, "\r\n");
 			List<String> statusElements = Arrays.asList(status.split(" "));
 			Validate.isTrue(statusElements.get(0).equals("HTTP/1.1"));
-			code = ResponseCodes.get(Integer.valueOf(statusElements.get(1)));
+			code = ResponseCodeRegistry.get(Integer.valueOf(statusElements.get(1)));
 			reason = StringUtils.join(statusElements.subList(2, statusElements.size()), " ");
-			Validate.isTrue(reason.matches(""));
+//			Validate.isTrue(reason.matches(""));
 			
 			String headersString = StringUtils.substringAfter(headerString, "\r\n");
+			System.out.println(headersString.getClass() + " " + headersString);
 			headers = new HeaderFields(headersString);
 		} catch (Exception e) {
 			throw new InvalidHeaderException(headerString, e);
