@@ -23,4 +23,8 @@ public class ResponseCodeRegistry {
 		}
 		return result;
 	}
+	
+	public static void register(int code, String defaultReason) {
+		responseCodes.putIfAbsent(code, new ResponseCode(code, new Reason(defaultReason)));
+	}
 }

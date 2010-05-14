@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
 
+import uk.org.lidalia.http.Reason;
 import uk.org.lidalia.http.ResponseCode;
 import uk.org.lidalia.http.ResponseCodeRegistry;
 import uk.org.lidalia.http.exception.InvalidHeaderException;
@@ -13,27 +14,30 @@ import uk.org.lidalia.http.exception.InvalidHeaderException;
 public class ResponseHeader implements uk.org.lidalia.http.ResponseHeader {
 	
 	private final ResponseCode code;
-	private final String reason;
+	private final Reason reason;
 	private final HeaderFields headers;
 	
 	public ResponseHeader(String headerString) throws InvalidHeaderException {
 		try {
+			Validate.isTrue(headerString.contains("\r\n"), "Header String should contain a CRLF");
 			String status = StringUtils.substringBefore(headerString, "\r\n");
 			List<String> statusElements = Arrays.asList(status.split(" "));
-			Validate.isTrue(statusElements.get(0).equals("HTTP/1.1"));
+			Validate.isTrue(statusElements.get(0).equals("HTTP/1.1"), "Header must start with HTTP/1.1");
 			code = ResponseCodeRegistry.get(Integer.valueOf(statusElements.get(1)));
-			reason = StringUtils.join(statusElements.subList(2, statusElements.size()), " ");
-//			Validate.isTrue(reason.matches(""));
+			String reasonString = StringUtils.join(statusElements.subList(2, statusElements.size()), " ");
+			reason = new Reason(reasonString);
 			
 			String headersString = StringUtils.substringAfter(headerString, "\r\n");
-			System.out.println(headersString.getClass() + " " + headersString);
 			headers = new HeaderFields(headersString);
 		} catch (Exception e) {
 			throw new InvalidHeaderException(headerString, e);
 		}
 	}
 	
-	public ResponseHeader(ResponseCode code, String reason, HeaderFields headers) {
+	public ResponseHeader(ResponseCode code, Reason reason, HeaderFields headers) {
+		Validate.notNull(code);
+		Validate.notNull(reason);
+		Validate.notNull(headers);
 		this.code = code;
 		this.reason = reason;
 		this.headers = headers;
@@ -45,7 +49,7 @@ public class ResponseHeader implements uk.org.lidalia.http.ResponseHeader {
 	}
 
 	@Override
-	public String getReason() {
+	public Reason getReason() {
 		return reason;
 	}
 	
