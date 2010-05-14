@@ -1,4 +1,4 @@
-package uk.org.lidalia.http;
+package uk.org.lidalia.http.response;
 
 import java.util.Collection;import java.util.Collections;
 import java.util.concurrent.ConcurrentHashMap;

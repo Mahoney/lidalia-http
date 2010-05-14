@@ -1,4 +1,4 @@
-package uk.org.lidalia.http;
+package uk.org.lidalia.http.response;
 
 import org.apache.commons.lang.Validate;
 

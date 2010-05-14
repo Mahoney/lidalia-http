@@ -6,9 +6,9 @@ public abstract class StringWrapper {
 	
 	private final String wrappedString;
 
-	public StringWrapper(String reason) {
-		Validate.notNull(reason);
-		this.wrappedString = reason;
+	public StringWrapper(String wrappedString) {
+		Validate.notNull(wrappedString);
+		this.wrappedString = wrappedString;
 	}
 
 	@Override

@@ -3,6 +3,8 @@ package uk.org.lidalia.http;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+import uk.org.lidalia.http.response.ResponseHeaderFieldType;
+
 public class HeaderFieldTypeRegistry {
 
 	private static final ConcurrentMap<String, HeaderFieldType> types = new ConcurrentHashMap<String, HeaderFieldType>();

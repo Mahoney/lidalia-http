@@ -1,4 +1,6 @@
-package uk.org.lidalia.http;
+package uk.org.lidalia.http.response;
+
+import uk.org.lidalia.http.Message;
 
 public interface Response extends Message {
 

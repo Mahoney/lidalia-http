@@ -5,7 +5,7 @@ import org.apache.commons.lang.Validate;
 
 import uk.org.lidalia.http.exception.InvalidResponseException;
 
-public class Response implements uk.org.lidalia.http.Response {
+public class Response implements uk.org.lidalia.http.response.Response {
 
 	private final ResponseHeader header;
 	private final ResponseBody body;

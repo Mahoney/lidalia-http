@@ -1,6 +1,6 @@
 package uk.org.lidalia.http.immutable;
 
-public class ResponseBody implements uk.org.lidalia.http.ResponseBody {
+public class ResponseBody implements uk.org.lidalia.http.response.ResponseBody {
 	
 	private final String body;
 

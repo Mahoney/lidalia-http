@@ -6,12 +6,12 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
 
-import uk.org.lidalia.http.Reason;
-import uk.org.lidalia.http.ResponseCode;
-import uk.org.lidalia.http.ResponseCodeRegistry;
 import uk.org.lidalia.http.exception.InvalidHeaderException;
+import uk.org.lidalia.http.response.Reason;
+import uk.org.lidalia.http.response.ResponseCode;
+import uk.org.lidalia.http.response.ResponseCodeRegistry;
 
-public class ResponseHeader implements uk.org.lidalia.http.ResponseHeader {
+public class ResponseHeader implements uk.org.lidalia.http.response.ResponseHeader {
 	
 	private final ResponseCode code;
 	private final Reason reason;
@@ -19,9 +19,10 @@ public class ResponseHeader implements uk.org.lidalia.http.ResponseHeader {
 	
 	public ResponseHeader(String headerString) throws InvalidHeaderException {
 		try {
-			Validate.isTrue(headerString.contains("\r\n"), "Header String should contain a CRLF");
+			Validate.isTrue(headerString.endsWith("\r\n"), "Header String should end with a CRLF");
 			String status = StringUtils.substringBefore(headerString, "\r\n");
 			List<String> statusElements = Arrays.asList(status.split(" "));
+			Validate.isTrue(statusElements.size() >= 3 || (statusElements.size() == 2 && status.endsWith(" ")), "Status line must contain at least two spaces");
 			Validate.isTrue(statusElements.get(0).equals("HTTP/1.1"), "Header must start with HTTP/1.1");
 			code = ResponseCodeRegistry.get(Integer.valueOf(statusElements.get(1)));
 			String reasonString = StringUtils.join(statusElements.subList(2, statusElements.size()), " ");
