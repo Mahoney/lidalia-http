@@ -1,9 +1,8 @@
 package uk.org.lidalia.http.immutable;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
 
 import uk.org.lidalia.http.exception.InvalidHeaderException;
@@ -13,23 +12,27 @@ import uk.org.lidalia.http.response.ResponseCodeRegistry;
 
 public class ResponseHeader implements uk.org.lidalia.http.response.ResponseHeader {
 	
+	private static final String ANYTHING = "(?:.|\u0085|\r|\n)*";
+	private static final String CODE = "(\\d\\d\\d)";
+	private static final String REASON = "((?:.|\u0085)*)";
+	private static final String CRLF = "\\r\\n";
+	private static final String HEADERS = "(" + ANYTHING + ")";
+	private static final String HEADER_REGEX = "^HTTP/1.1 " + CODE + " " + REASON + CRLF + HEADERS + "$";
+	
+	private static final Pattern STATUS_LINE_PATTERN = Pattern.compile(HEADER_REGEX);
+	
 	private final ResponseCode code;
 	private final Reason reason;
 	private final HeaderFields headers;
 	
+	
 	public ResponseHeader(String headerString) throws InvalidHeaderException {
 		try {
-			Validate.isTrue(headerString.endsWith("\r\n"), "Header String should end with a CRLF");
-			String status = StringUtils.substringBefore(headerString, "\r\n");
-			List<String> statusElements = Arrays.asList(status.split(" "));
-			Validate.isTrue(statusElements.size() >= 3 || (statusElements.size() == 2 && status.endsWith(" ")), "Status line must contain at least two spaces");
-			Validate.isTrue(statusElements.get(0).equals("HTTP/1.1"), "Header must start with HTTP/1.1");
-			code = ResponseCodeRegistry.get(Integer.valueOf(statusElements.get(1)));
-			String reasonString = StringUtils.join(statusElements.subList(2, statusElements.size()), " ");
-			reason = new Reason(reasonString);
-			
-			String headersString = StringUtils.substringAfter(headerString, "\r\n");
-			headers = new HeaderFields(headersString);
+			Matcher headerMatcher = STATUS_LINE_PATTERN.matcher(headerString);
+			Validate.isTrue(headerMatcher.matches(), "[" + headerString + "] must match " + HEADER_REGEX);
+			code = ResponseCodeRegistry.get(Integer.valueOf(headerMatcher.group(1)));
+			reason = new Reason(headerMatcher.group(2));
+			headers = new HeaderFields(headerMatcher.group(3));
 		} catch (Exception e) {
 			throw new InvalidHeaderException(headerString, e);
 		}

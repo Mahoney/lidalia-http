@@ -9,7 +9,7 @@ public class InvalidHeaderException extends Exception {
 	}
 
 	public InvalidHeaderException(String headerString, Exception e) {
-		super("Unable to parse " + headerString + " into a valid HTTP Header", e);
+		super("Unable to parse [" + headerString + "] into a valid HTTP Header", e);
 		this.headerString = headerString;
 	}
 

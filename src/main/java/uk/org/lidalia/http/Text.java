@@ -15,7 +15,7 @@ public class Text extends StringWrapper {
 
 	public Text(String text) {
 		super(text);
-		byte[] textAsBytes = text.getBytes(Charset.forName("US-ASCII"));
+		byte[] textAsBytes = text.getBytes(Charset.forName("ISO-8859-1"));
 		for (int i = 0; i < textAsBytes.length; i++) {
 			byte currentByte = textAsBytes[i];
 			byte nextByte = textAsBytes.length > i + 1 ? textAsBytes[i + 1] : DEL;

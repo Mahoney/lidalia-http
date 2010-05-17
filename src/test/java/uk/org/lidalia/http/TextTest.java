@@ -12,13 +12,20 @@ public class TextTest {
 	
 	@Test
 	public void constructorThrowsIllegalArgumentExceptionOnControlCharacter() throws Throwable {
-		final String string = new String(new byte[]{12}, Charset.forName("US-ASCII"));
+		final String string = new String(new byte[]{12}, Charset.forName("ISO-8859-1"));
 		assertExceptionThrown(string);
 	}
 	
 	@Test
 	public void constructorAcceptsNormalText() throws Throwable {
 		String string = "Hello World\t\t\t         99+\"'/\\^&*";
+		Text text = new Text(string);
+		assertEquals(string, text.toString());
+	}
+	
+	@Test
+	public void constructorAcceptsEmptyText() throws Throwable {
+		String string = "";
 		Text text = new Text(string);
 		assertEquals(string, text.toString());
 	}

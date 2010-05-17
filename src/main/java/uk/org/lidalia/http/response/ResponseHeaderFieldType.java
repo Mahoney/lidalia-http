@@ -1,6 +1,7 @@
 package uk.org.lidalia.http.response;
 
 import uk.org.lidalia.http.HeaderFieldType;
+import uk.org.lidalia.http.Text;
 
 public enum ResponseHeaderFieldType implements HeaderFieldType {
 
@@ -28,7 +29,7 @@ public enum ResponseHeaderFieldType implements HeaderFieldType {
 
 	@Override
 	public Object parseValue(String headerValue) {
-		return headerValue;
+		return new Text(headerValue);
 	}
 
 	@Override

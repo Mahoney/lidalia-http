@@ -18,7 +18,11 @@ public abstract class StringWrapper {
 
 	@Override
 	public final int hashCode() {
-		return wrappedString.hashCode();
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + getClass().hashCode();
+		result = prime * result + wrappedString.hashCode();
+		return result;
 	}
 
 	@Override

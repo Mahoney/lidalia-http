@@ -1,26 +1,18 @@
 package uk.org.lidalia.http;
 
-public class UnknownHeaderFieldType implements HeaderFieldType {
+public class UnknownHeaderFieldType extends Token implements HeaderFieldType {
 
-	private String name;
-	
 	public UnknownHeaderFieldType(String headerName) {
-		this.name = headerName;
+		super(headerName);
 	}
 
 	@Override
 	public String getName() {
-		return name;
+		return toString();
 	}
 
 	@Override
 	public Object parseValue(String headerValue) {
-		return headerValue;
+		return new Text(headerValue);
 	}
-	
-	@Override
-	public String toString() {
-		return name;
-	}
-	
 }

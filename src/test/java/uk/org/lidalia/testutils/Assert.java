@@ -1,13 +1,9 @@
 package uk.org.lidalia.testutils;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 
-import java.lang.reflect.Constructor;
 import java.util.concurrent.Callable;
-
-//import org.powermock.reflect.Whitebox;
 
 public class Assert {
 
@@ -44,24 +40,5 @@ public class Assert {
 	
 	private Assert() {
 		throw new UnsupportedOperationException("Not instantiable");
-	}
-	
-//	public static void assertNotInstantiable(final Class<?> classThatShouldNotBeInstantiable) throws Throwable {
-//		assertOnlyHasNoArgsConstructor(classThatShouldNotBeInstantiable);
-//		
-//		UnsupportedOperationException oue = shouldThrow(UnsupportedOperationException.class, new Callable<Void>() {
-//			public Void call() throws Exception {
-//				Whitebox.invokeConstructor(classThatShouldNotBeInstantiable);
-//				return null;
-//			}
-//		});
-//		assertEquals("Not instantiable", oue.getMessage());
-//	}
-
-	private static void assertOnlyHasNoArgsConstructor(final Class<?> classThatShouldNotBeInstantiable) {
-		assertEquals(Object.class, classThatShouldNotBeInstantiable.getSuperclass());
-		assertEquals(1, classThatShouldNotBeInstantiable.getDeclaredConstructors().length);
-		final Constructor<?> constructor = classThatShouldNotBeInstantiable.getDeclaredConstructors()[0];
-		assertEquals(0, constructor.getParameterTypes().length);
 	}
 }
