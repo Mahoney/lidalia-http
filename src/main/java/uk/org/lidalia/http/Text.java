@@ -1,6 +1,5 @@
 package uk.org.lidalia.http;
 
-import java.nio.charset.Charset;
 
 public class Text extends StringWrapper {
 
@@ -15,7 +14,7 @@ public class Text extends StringWrapper {
 
 	public Text(String text) {
 		super(text);
-		byte[] textAsBytes = text.getBytes(Charset.forName("ISO-8859-1"));
+		byte[] textAsBytes = text.getBytes(CharSets.ISO_8859_1);
 		for (int i = 0; i < textAsBytes.length; i++) {
 			byte currentByte = textAsBytes[i];
 			byte nextByte = textAsBytes.length > i + 1 ? textAsBytes[i + 1] : DEL;

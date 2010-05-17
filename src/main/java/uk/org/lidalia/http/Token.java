@@ -15,7 +15,7 @@ public class Token extends StringWrapper {
 		'/', '[', ']', '?',  '=',
 		'{', '}', ' ', '\t'
 		};
-	private static final String SEPARATORS_STRING = new String(SEPARATORS, Charset.forName("ISO-8859-1"));
+	private static final String SEPARATORS_STRING = new String(SEPARATORS, CharSets.ISO_8859_1);
 	
 	static {
 		Arrays.sort(SEPARATORS);
@@ -23,7 +23,7 @@ public class Token extends StringWrapper {
 
 	public Token(String token) {
 		super(token);
-		byte[] textAsBytes = token.getBytes(Charset.forName("ISO-8859-1"));
+		byte[] textAsBytes = token.getBytes(CharSets.ISO_8859_1);
 		Validate.isTrue(textAsBytes.length > 0, "Token must contain at least one character");
 		for (int i = 0; i < textAsBytes.length; i++) {
 			byte currentChar = textAsBytes[i];
