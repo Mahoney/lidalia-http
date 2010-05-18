@@ -1,5 +1,7 @@
 package uk.org.lidalia.http;
 
+import java.nio.charset.CharacterCodingException;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
 
@@ -8,7 +10,7 @@ public class HeaderField {
 	protected final HeaderFieldType name;
 	protected final Object value;
 	
-	public HeaderField(String headerString) {
+	public HeaderField(String headerString) throws CharacterCodingException {
 		String headerName = StringUtils.substringBefore(headerString, ":");
 		String headerValue = StringUtils.substringAfter(headerString, ":");
 		this.name = HeaderFieldTypeRegistry.get(headerName);

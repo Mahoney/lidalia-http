@@ -1,8 +1,10 @@
 package uk.org.lidalia.http;
 
+import java.nio.charset.CharacterCodingException;
+
 public class UnknownHeaderFieldType extends Token implements HeaderFieldType {
 
-	public UnknownHeaderFieldType(String headerName) {
+	public UnknownHeaderFieldType(String headerName) throws CharacterCodingException {
 		super(headerName);
 	}
 
@@ -12,7 +14,7 @@ public class UnknownHeaderFieldType extends Token implements HeaderFieldType {
 	}
 
 	@Override
-	public Object parseValue(String headerValue) {
+	public Object parseValue(String headerValue) throws CharacterCodingException {
 		return new Text(headerValue);
 	}
 }

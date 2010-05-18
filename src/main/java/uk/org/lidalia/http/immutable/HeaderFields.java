@@ -1,5 +1,6 @@
 package uk.org.lidalia.http.immutable;
 
+import java.nio.charset.CharacterCodingException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -17,11 +18,11 @@ public class HeaderFields implements uk.org.lidalia.http.HeaderFields {
 	
 	private final Map<HeaderFieldType, HeaderField> headers;
 	
-	public HeaderFields(String headersString) {
+	public HeaderFields(String headersString) throws CharacterCodingException {
 		this(parseHeaders(headersString));
 	}
 
-	private static HeaderField[] parseHeaders(String headersString) {
+	private static HeaderField[] parseHeaders(String headersString) throws CharacterCodingException {
 		String[] headerStrings = StringUtils.split(headersString, "\r\n");
 		List<HeaderField> headers = new ArrayList<HeaderField>();
 		for (String headerString : headerStrings) {

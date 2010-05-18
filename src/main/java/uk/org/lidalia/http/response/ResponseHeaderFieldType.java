@@ -1,5 +1,7 @@
 package uk.org.lidalia.http.response;
 
+import java.nio.charset.CharacterCodingException;
+
 import uk.org.lidalia.http.HeaderFieldType;
 import uk.org.lidalia.http.Text;
 
@@ -28,7 +30,7 @@ public enum ResponseHeaderFieldType implements HeaderFieldType {
 	}
 
 	@Override
-	public Object parseValue(String headerValue) {
+	public Object parseValue(String headerValue) throws CharacterCodingException {
 		return new Text(headerValue);
 	}
 

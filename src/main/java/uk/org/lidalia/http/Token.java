@@ -1,6 +1,8 @@
 package uk.org.lidalia.http;
 
-import java.nio.charset.Charset;
+import java.nio.CharBuffer;
+import java.nio.charset.CharacterCodingException;
+import java.nio.charset.CharsetEncoder;
 import java.util.Arrays;
 
 import org.apache.commons.lang.Validate;
@@ -21,9 +23,11 @@ public class Token extends StringWrapper {
 		Arrays.sort(SEPARATORS);
 	}
 
-	public Token(String token) {
+	public Token(String token) throws CharacterCodingException {
 		super(token);
-		byte[] textAsBytes = token.getBytes(CharSets.ISO_8859_1);
+		CharsetEncoder encoder = CharSets.US_ASCII.newEncoder();
+		CharBuffer charBuffer = CharBuffer.wrap(token);
+		byte[] textAsBytes = encoder.encode(charBuffer).array();
 		Validate.isTrue(textAsBytes.length > 0, "Token must contain at least one character");
 		for (int i = 0; i < textAsBytes.length; i++) {
 			byte currentChar = textAsBytes[i];

@@ -1,5 +1,6 @@
 package uk.org.lidalia.http.response;
 
+import java.nio.charset.CharacterCodingException;
 import java.util.Collection;import java.util.Collections;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -24,7 +25,7 @@ public class ResponseCodeRegistry {
 		return result;
 	}
 	
-	public static void register(int code, String defaultReason) {
+	public static void register(int code, String defaultReason) throws CharacterCodingException {
 		responseCodes.putIfAbsent(code, new ResponseCode(code, new Reason(defaultReason)));
 	}
 }

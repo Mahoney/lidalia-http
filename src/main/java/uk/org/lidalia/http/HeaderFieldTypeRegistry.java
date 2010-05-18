@@ -1,5 +1,6 @@
 package uk.org.lidalia.http;
 
+import java.nio.charset.CharacterCodingException;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -15,7 +16,7 @@ public class HeaderFieldTypeRegistry {
 		}
 	}
 
-	public static HeaderFieldType get(String headerName) {
+	public static HeaderFieldType get(String headerName) throws CharacterCodingException {
 		HeaderFieldType type = types.get(headerName);
 		if (type == null) {
 			type = new UnknownHeaderFieldType(headerName);
