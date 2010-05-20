@@ -6,32 +6,40 @@ import static org.junit.Assert.fail;
 import java.util.concurrent.Callable;
 
 public class Assert {
-
-	@SuppressWarnings("unchecked")
+	
 	public static <E extends Throwable> E shouldThrow(Class<E> throwableType, Callable<Void> callable) throws Throwable {
-		try {
-			callable.call();
-			fail("No exception thrown; expected a " + throwableType.getName());
-			return null;
-		} catch (Throwable t) {
-			if (instanceOf(t, throwableType)) {
-				return (E) t;
-			}
-			throw t;
-		}
+		return shouldThrow(throwableType, null, callable);
 	}
 	
-	public static void shouldThrow(Throwable expected, Callable<?> callable) throws Throwable {
+	@SuppressWarnings("unchecked")
+	public static <E extends Throwable> E shouldThrow(Class<E> throwableType, String diagnosticMessage, Callable<Void> callable) throws Throwable {
 		try {
 			callable.call();
-			fail("No exception thrown; should have thrown " + expected);
+			reportFailure(throwableType, diagnosticMessage);
+			return null;
 		} catch (Throwable actual) {
-			if (instanceOf(actual, expected.getClass())) {
-				assertSame(expected, actual);
-				return;
+			if (instanceOf(actual, throwableType)) {
+				return (E) actual;
 			}
 			throw actual;
 		}
+	}
+
+	private static void reportFailure(Object expected, String diagnosticMessage) throws AssertionError {
+		String message = "No exception thrown; expected " + expected;
+		if (diagnosticMessage != null) {
+			message += (System.getProperty("line.separator") + diagnosticMessage);
+		}
+		fail(message);
+	}
+	
+	public static void shouldThrow(Throwable expected, Callable<Void> callable) throws Throwable {
+		shouldThrow(expected, null, callable);
+	}
+	
+	public static void shouldThrow(Throwable expected, String diagnosticMessage, Callable<Void> callable) throws Throwable {
+		Throwable actual = shouldThrow(expected.getClass(), diagnosticMessage, callable);
+		assertSame("Actual exception was not the expected instance. " + diagnosticMessage, expected, actual);
 	}
 	
 	public static boolean instanceOf(Object o, Class<?> c) {
