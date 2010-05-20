@@ -14,11 +14,11 @@ import org.apache.commons.lang.Validate;
 import uk.org.lidalia.http.HeaderFieldType;
 import uk.org.lidalia.http.HeaderField;
 
-public class HeaderFields implements uk.org.lidalia.http.HeaderFields {
+public class Headers implements uk.org.lidalia.http.Headers {
 	
 	private final Map<HeaderFieldType, HeaderField> headers;
 	
-	public HeaderFields(String headersString) throws CharacterCodingException {
+	public Headers(String headersString) throws CharacterCodingException {
 		this(parseHeaders(headersString));
 	}
 
@@ -31,7 +31,7 @@ public class HeaderFields implements uk.org.lidalia.http.HeaderFields {
 		return (HeaderField[]) headers.toArray(new HeaderField[] {});
 	}
 
-	public HeaderFields(HeaderField... newHeaders) {
+	public Headers(HeaderField... newHeaders) {
 		Map<HeaderFieldType, HeaderField> headers = new LinkedHashMap<HeaderFieldType, HeaderField>();
 		for (HeaderField header : newHeaders) {
 			headers.put(header.getName(), header);

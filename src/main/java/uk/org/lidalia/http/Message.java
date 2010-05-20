@@ -2,7 +2,7 @@ package uk.org.lidalia.http;
 
 public interface Message {
 
-	public abstract Header getHeader();
+	public abstract Headers getHeaders();
 
 	public abstract Body getBody();
 
