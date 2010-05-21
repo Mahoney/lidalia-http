@@ -6,7 +6,6 @@ import java.util.regex.Pattern;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
 
-import uk.org.lidalia.http.exception.InvalidHeaderException;
 import uk.org.lidalia.http.exception.InvalidResponseException;
 import uk.org.lidalia.http.response.Reason;
 import uk.org.lidalia.http.response.ResponseCode;
@@ -17,9 +16,10 @@ public class Response implements uk.org.lidalia.http.response.Response {
 	private static final String ANYTHING = "(?:.|\u0085|\r|\n)*";
 	private static final String CODE = "(\\d\\d\\d)";
 	private static final String REASON = "((?:.|\u0085)*)";
-	private static final String CRLF = "(?:\\r\\n)?";
+	private static final String CRLF = "\\r\\n";
+	private static final String OPTIONAL_CRLF = "(?:" + CRLF + ")?";
 	private static final String HEADERS = "(" + ANYTHING + ")";
-	private static final String HEADER_REGEX = "^HTTP/1.1 " + CODE + " " + REASON + CRLF + HEADERS + "$";
+	private static final String HEADER_REGEX = "^HTTP/1.1 " + CODE + " " + REASON + OPTIONAL_CRLF + HEADERS + "$";
 	
 	private static final Pattern STATUS_LINE_PATTERN = Pattern.compile(HEADER_REGEX);
 	
@@ -31,17 +31,15 @@ public class Response implements uk.org.lidalia.http.response.Response {
 	public Response(String responseString) throws InvalidResponseException {
 		try {
 			Validate.isTrue(responseString.contains("\r\n\r\n"), "A Response must have a double CLRF after the header");
+			
 			String headerString = StringUtils.substringBefore(responseString, "\r\n\r\n");
+			Matcher headerMatcher = STATUS_LINE_PATTERN.matcher(headerString);
+			Validate.isTrue(headerMatcher.matches(), "[" + headerString + "] must match " + HEADER_REGEX);
+			code = ResponseCodeRegistry.get(Integer.valueOf(headerMatcher.group(1)));
+			reason = new Reason(headerMatcher.group(2));
+			headers = new Headers(headerMatcher.group(3));
+			
 			String bodyString = StringUtils.substringAfter(responseString, "\r\n\r\n");
-			try {
-				Matcher headerMatcher = STATUS_LINE_PATTERN.matcher(headerString);
-				Validate.isTrue(headerMatcher.matches(), "[" + headerString + "] must match " + HEADER_REGEX);
-				code = ResponseCodeRegistry.get(Integer.valueOf(headerMatcher.group(1)));
-				reason = new Reason(headerMatcher.group(2));
-				headers = new Headers(headerMatcher.group(3));
-			} catch (Exception e) {
-				throw new InvalidHeaderException(headerString, e);
-			}
 			this.body = ResponseBody.parse(bodyString);
 		} catch (Exception e) {
 			throw new InvalidResponseException(responseString, e);
@@ -67,7 +65,7 @@ public class Response implements uk.org.lidalia.http.response.Response {
 
 	@Override
 	public String toString() {
-		return "HTTP/1.1 " + code + " " + reason + "\r\n" + headers + "\r\n" + body;
+		return "HTTP/1.1 " + code + " " + reason + "\r\n" + headers + "\r\n" + (body != null ? body : "");
 	}
 
 	public ResponseCode getCode() {

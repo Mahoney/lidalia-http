@@ -14,7 +14,6 @@ import org.junit.runner.RunWith;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import uk.org.lidalia.http.exception.InvalidHeaderException;
 import uk.org.lidalia.http.exception.InvalidResponseException;
 import uk.org.lidalia.http.response.Reason;
 import uk.org.lidalia.http.response.ResponseCode;
@@ -112,6 +111,12 @@ public class ResponseHeaderTest {
 		assertStringConstructorThrowsInvalidHeaderException(headerString);
 	}
 	
+	@Test
+	public void stringConstructorThrowsInvalidHeaderExceptionForOddLineFeeds() throws Throwable {
+		final String headerString = "HTTP/1.1 0200 OK blah\r\nblah\rblah";
+		assertStringConstructorThrowsInvalidHeaderException(headerString);
+	}
+	
 	private void assertStringConstructorThrowsInvalidHeaderException(final String headerString) throws Throwable {
 		InvalidResponseException exception = shouldThrow(InvalidResponseException.class, new Callable<Void>() {
 			@Override
@@ -121,11 +126,9 @@ public class ResponseHeaderTest {
 			}
 		});
 		
-		InvalidHeaderException headerException = (InvalidHeaderException) exception.getCause();
-
-		assertEquals("Unable to parse [" + headerString + "] into a valid HTTP Header", headerException.getMessage());
-		assertSame(IllegalArgumentException.class, headerException.getCause().getClass());
-		assertEquals("[" + headerString + "] must match ^HTTP/1.1 (\\d\\d\\d) ((?:.|\u0085)*)(?:\\r\\n)?((?:.|\u0085|\r|\n)*)$", headerException.getCause().getMessage());
+		assertEquals("Invalid response: " + headerString + "\r\n\r\n", exception.getMessage());
+		IllegalArgumentException cause = (IllegalArgumentException) exception.getCause();
+		assertEquals("[" + headerString + "] must match ^HTTP/1.1 (\\d\\d\\d) ((?:.|\u0085)*)(?:\\r\\n)?((?:.|\u0085|\r|\n)*)$", cause.getMessage());
 	}
 
 }
