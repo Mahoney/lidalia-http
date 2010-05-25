@@ -16,9 +16,10 @@ public class ResponseHeader implements uk.org.lidalia.http.response.ResponseHead
 	private static final String CODE = "(\\d\\d\\d)";
 	private static final String REASON = "((?:.|\u0085)*)";
 	private static final String CRLF = "\\r\\n";
+	private static final String OPTIONAL_CRLF = "(?:" + CRLF + ")?";
 	private static final String HEADERS = "(" + ANYTHING + ")";
-	private static final String HEADER_REGEX = "^HTTP/1.1 " + CODE + " " + REASON + CRLF + HEADERS + "$";
-	
+	private static final String HEADER_REGEX = "^HTTP/1.1 " + CODE + " " + REASON + OPTIONAL_CRLF + HEADERS + "$";
+
 	private static final Pattern STATUS_LINE_PATTERN = Pattern.compile(HEADER_REGEX);
 	
 	private final ResponseCode code;

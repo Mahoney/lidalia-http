@@ -2,7 +2,6 @@ package uk.org.lidalia.http.immutable;
 
 import java.nio.charset.CharacterCodingException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -16,7 +15,7 @@ import uk.org.lidalia.http.HeaderField;
 
 public class HeaderFields implements uk.org.lidalia.http.HeaderFields {
 	
-	private final Map<HeaderFieldType, HeaderField> headers;
+	private final Map<HeaderFieldType, HeaderField> headers = new LinkedHashMap<HeaderFieldType, HeaderField>();
 	
 	public HeaderFields(String headersString) throws CharacterCodingException {
 		this(parseHeaders(headersString));
@@ -28,17 +27,16 @@ public class HeaderFields implements uk.org.lidalia.http.HeaderFields {
 		for (String headerString : headerStrings) {
 			headers.add(new HeaderField(headerString));
 		}
-		return (HeaderField[]) headers.toArray(new HeaderField[] {});
+		return headers.toArray(new HeaderField[] {});
 	}
 
 	public HeaderFields(HeaderField... newHeaders) {
-		Map<HeaderFieldType, HeaderField> headers = new LinkedHashMap<HeaderFieldType, HeaderField>();
 		for (HeaderField header : newHeaders) {
 			headers.put(header.getName(), header);
 		}
-		this.headers = Collections.unmodifiableMap(headers);
 	}
 
+	@Override
 	public Object get(HeaderFieldType name) {
 		Validate.notNull(name, "HeaderFieldType cannot be null");
 		HeaderField header = headers.get(name);
@@ -56,11 +54,7 @@ public class HeaderFields implements uk.org.lidalia.http.HeaderFields {
 	
 	@Override
 	public String toString() {
-		StringBuilder stringBuilder = new StringBuilder();
-		for (HeaderField header : this) {
-			stringBuilder.append(header).append("\r\n");
-		}
-		return stringBuilder.toString();
+		return StringUtils.join(headers.values(), "\r\n");
 	}
 
 	@Override

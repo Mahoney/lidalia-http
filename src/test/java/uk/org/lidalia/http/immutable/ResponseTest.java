@@ -53,7 +53,7 @@ public class ResponseTest {
 	
 	@Test
 	public void constructByStringDelegatesToHeaderAndBodyConstructByString() throws Exception {
-		ResponseHeader headerMock = createMockAndExpectNew(ResponseHeader.class, "header\r\n");
+		ResponseHeader headerMock = createMockAndExpectNew(ResponseHeader.class, "header");
 		ResponseBody bodyMock = createMock(ResponseBody.class);
 		mockStatic(ResponseBody.class);
 		expect(ResponseBody.parse("body")).andReturn(bodyMock);

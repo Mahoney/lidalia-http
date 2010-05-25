@@ -24,11 +24,6 @@ import uk.org.lidalia.http.response.ResponseCode;
 public class ResponseHeaderTest {
 
 	@Test
-	public void split() {
-		assertEquals(3, "a  b".split(" ").length);
-	}
-
-	@Test
 	public void stringConstructorParsesCodeAndReasonAndConstructsHeaderFieldsWithEmptyString() throws Exception {
 		HeaderFields headerFieldsMock = createMockAndExpectNew(HeaderFields.class, "header1: value\r\nheader2: value\r\n");
 		replayAll();
@@ -94,32 +89,26 @@ public class ResponseHeaderTest {
 	}
 
 	@Test
-	public void stringConstructorThrowsInvalidHeaderExceptionWhenNoCRLF() throws Throwable {
-		final String headerString = "HTTP/1.1 200 OK";
-		assertStringConstructorThrowsInvalidHeaderException(headerString);
-	}
-
-	@Test
 	public void stringConstructorThrowsInvalidHeaderExceptionWhenFirstElementInStatusLineIsNotHTTPVersion() throws Throwable {
-		final String headerString = "blah 200 OK\r\n";
+		final String headerString = "blah 200 OK";
 		assertStringConstructorThrowsInvalidHeaderException(headerString);
 	}
 
 	@Test
 	public void stringConstructorThrowsInvalidHeaderExceptionWhenOnlyOneElementInStatusLine() throws Throwable {
-		final String headerString = "HTTP/1.1\r\n";
+		final String headerString = "HTTP/1.1";
 		assertStringConstructorThrowsInvalidHeaderException(headerString);
 	}
 
 	@Test
 	public void stringConstructorThrowsInvalidHeaderExceptionWhenNoSpaceAfterCode() throws Throwable {
-		final String headerString = "HTTP/1.1 200\r\n";
+		final String headerString = "HTTP/1.1 200";
 		assertStringConstructorThrowsInvalidHeaderException(headerString);
 	}
 
 	@Test
 	public void stringConstructorThrowsInvalidHeaderExceptionForFourDigitResponseCode() throws Throwable {
-		final String headerString = "HTTP/1.1 0200 OK\r\n";
+		final String headerString = "HTTP/1.1 0200 OK";
 		assertStringConstructorThrowsInvalidHeaderException(headerString);
 	}
 	
@@ -134,7 +123,7 @@ public class ResponseHeaderTest {
 
 		assertEquals("Unable to parse [" + headerString + "] into a valid HTTP Header", exception.getMessage());
 		assertSame(IllegalArgumentException.class, exception.getCause().getClass());
-		assertEquals("[" + headerString + "] must match ^HTTP/1.1 (\\d\\d\\d) ((?:.|\u0085)*)\\r\\n((?:.|\u0085|\r|\n)*)$", exception.getCause().getMessage());
+		assertEquals("[" + headerString + "] must match ^HTTP/1.1 (\\d\\d\\d) ((?:.|\u0085)*)(?:\\r\\n)?((?:.|\u0085|\r|\n)*)$", exception.getCause().getMessage());
 	}
 
 }
