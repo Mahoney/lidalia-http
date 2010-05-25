@@ -12,7 +12,7 @@ public class HeaderField {
 	
 	public HeaderField(String headerString) throws CharacterCodingException {
 		String headerName = StringUtils.substringBefore(headerString, ":");
-		String headerValue = StringUtils.substringAfter(headerString, ":");
+		String headerValue = StringUtils.substringAfter(headerString, ":").trim();
 		this.name = HeaderFieldTypeRegistry.get(headerName);
 		this.value = name.parseValue(headerValue);
 	}
