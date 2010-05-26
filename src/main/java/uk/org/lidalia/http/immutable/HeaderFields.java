@@ -22,7 +22,8 @@ public class HeaderFields implements uk.org.lidalia.http.HeaderFields {
 	}
 
 	private static HeaderField[] parseHeaders(String headersString) throws CharacterCodingException {
-		String[] headerStrings = StringUtils.split(headersString, "\r\n");
+		String headersWithoutLinearWhitespace = headersString.replaceAll("\r\n( |\t)+", " ");
+		String[] headerStrings = StringUtils.split(headersWithoutLinearWhitespace, "\r\n");
 		List<HeaderField> headers = new ArrayList<HeaderField>();
 		for (String headerString : headerStrings) {
 			headers.add(new HeaderField(headerString));
@@ -30,9 +31,14 @@ public class HeaderFields implements uk.org.lidalia.http.HeaderFields {
 		return headers.toArray(new HeaderField[] {});
 	}
 
-	public HeaderFields(HeaderField... newHeaders) {
+	public HeaderFields(HeaderField... newHeaders) throws CharacterCodingException {
 		for (HeaderField header : newHeaders) {
-			headers.put(header.getName(), header);
+			HeaderField existingHeader = headers.get(header.getName());
+			if (existingHeader == null) {
+				headers.put(header.getName(), header);
+			} else {
+				headers.put(header.getName(), new HeaderField(header.getName() + ": " + existingHeader.getValue() + ", " + header.getValue()));
+			}
 		}
 	}
 

@@ -12,7 +12,7 @@ public class HeaderFieldTypeRegistry {
 	
 	static {
 		for (ResponseHeaderFieldType type : ResponseHeaderFieldType.values()) {
-			types.put(type.getName(), type);
+			types.put(type.toString(), type);
 		}
 	}
 
@@ -29,6 +29,6 @@ public class HeaderFieldTypeRegistry {
 	}
 	
 	public static void registerResponseHeaderFieldType(HeaderFieldType newType) {
-		types.putIfAbsent(newType.getName(), newType);
+		types.putIfAbsent(newType.toString(), newType);
 	}
 }
