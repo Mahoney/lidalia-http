@@ -10,8 +10,9 @@ import java.util.Set;
 import java.util.Map;
 
 import uk.org.lidalia.http.HeaderFieldType;
+import uk.org.lidalia.http.Text;
 
-public class ResponseHeaderFieldType extends HeaderFieldType {
+public class ResponseHeaderFieldType extends HeaderFieldType<Text> {
 
 	public static final ResponseHeaderFieldType ACCEPT_RANGES		= makeResponseHeaderFieldType("Accept-Ranges");
 	public static final ResponseHeaderFieldType AGE					= makeResponseHeaderFieldType("Age");
@@ -34,6 +35,15 @@ public class ResponseHeaderFieldType extends HeaderFieldType {
 
 	private ResponseHeaderFieldType(String name) throws CharacterCodingException {
 		super(name);
+	}
+	
+	@Override
+	public Text parseValue(String headerValue) {
+		try {
+			return new Text(headerValue);
+		} catch (CharacterCodingException e) {
+			throw new IllegalArgumentException(e);
+		}
 	}
 
 	private static final Map<String, ResponseHeaderFieldType> values;

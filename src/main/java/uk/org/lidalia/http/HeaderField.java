@@ -5,10 +5,10 @@ import java.nio.charset.CharacterCodingException;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
 
-public class HeaderField {
+public class HeaderField<E> {
 	
-	protected final HeaderFieldType name;
-	protected final Object value;
+	protected final HeaderFieldType<E> name;
+	protected final E value;
 	
 	public HeaderField(String headerString) throws CharacterCodingException {
 		String headerName = StringUtils.substringBefore(headerString, ":");
@@ -17,14 +17,14 @@ public class HeaderField {
 		this.value = name.parseValue(headerValue);
 	}
 
-	public HeaderField(HeaderFieldType name, Object value) {
+	public HeaderField(HeaderFieldType<E> name, E value) {
 		Validate.notNull(name, "HeaderName cannot be null");
 		Validate.notNull(value, "HeaderValue cannot be null");
 		this.name = name;
 		this.value = value;
 	}
 	
-	public HeaderFieldType getName() {
+	public HeaderFieldType<E> getName() {
 		return name;
 	}
 	
