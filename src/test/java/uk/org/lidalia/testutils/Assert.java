@@ -8,11 +8,11 @@ import java.util.concurrent.Callable;
 public class Assert {
 	
 	public static <E extends Throwable> E shouldThrow(Class<E> throwableType, Callable<Void> callable) throws Throwable {
-		return shouldThrow(throwableType, null, callable);
+		return shouldThrow(null, throwableType, callable);
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static <E extends Throwable> E shouldThrow(Class<E> throwableType, String diagnosticMessage, Callable<Void> callable) throws Throwable {
+	public static <E extends Throwable> E shouldThrow(String diagnosticMessage, Class<E> throwableType, Callable<Void> callable) throws Throwable {
 		try {
 			callable.call();
 			reportFailure(throwableType, diagnosticMessage);
@@ -34,11 +34,11 @@ public class Assert {
 	}
 	
 	public static void shouldThrow(Throwable expected, Callable<Void> callable) throws Throwable {
-		shouldThrow(expected, null, callable);
+		shouldThrow(null, expected, callable);
 	}
 	
-	public static void shouldThrow(Throwable expected, String diagnosticMessage, Callable<Void> callable) throws Throwable {
-		Throwable actual = shouldThrow(expected.getClass(), diagnosticMessage, callable);
+	public static void shouldThrow(String diagnosticMessage, Throwable expected, Callable<Void> callable) throws Throwable {
+		Throwable actual = shouldThrow(diagnosticMessage, expected.getClass(), callable);
 		assertSame("Actual exception was not the expected instance. " + diagnosticMessage, expected, actual);
 	}
 	

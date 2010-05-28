@@ -12,7 +12,7 @@ import java.util.Map;
 import uk.org.lidalia.http.HeaderFieldType;
 import uk.org.lidalia.http.Text;
 
-public class ResponseHeaderFieldType extends HeaderFieldType<Text> {
+public class ResponseHeaderFieldType extends HeaderFieldType {
 
 	public static final ResponseHeaderFieldType ACCEPT_RANGES		= makeResponseHeaderFieldType("Accept-Ranges");
 	public static final ResponseHeaderFieldType AGE					= makeResponseHeaderFieldType("Age");

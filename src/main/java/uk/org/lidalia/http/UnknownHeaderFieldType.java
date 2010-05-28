@@ -2,7 +2,7 @@ package uk.org.lidalia.http;
 
 import java.nio.charset.CharacterCodingException;
 
-public class UnknownHeaderFieldType extends HeaderFieldType<Text> {
+public class UnknownHeaderFieldType extends HeaderFieldType {
 
 	public UnknownHeaderFieldType(String headerName) throws CharacterCodingException {
 		super(headerName);

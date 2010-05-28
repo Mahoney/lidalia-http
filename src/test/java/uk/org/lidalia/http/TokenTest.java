@@ -63,7 +63,7 @@ public class TokenTest {
 	}
 
 	private void assertExpectedIllegalArgumentExceptionThrown(final String constructorArgument) throws Throwable {
-		IllegalArgumentException exception = shouldThrow(IllegalArgumentException.class, "Using constructor argument [" + constructorArgument + "]", new Callable<Void>() {
+		IllegalArgumentException exception = shouldThrow("Using constructor argument [" + constructorArgument + "]", IllegalArgumentException.class, new Callable<Void>() {
 			@Override
 			public Void call() throws Exception {
 				new Token(constructorArgument);
