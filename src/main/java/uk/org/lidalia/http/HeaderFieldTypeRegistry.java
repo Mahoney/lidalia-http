@@ -4,6 +4,7 @@ import java.nio.charset.CharacterCodingException;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+import uk.org.lidalia.http.exception.IllegalHeaderNameException;
 import uk.org.lidalia.http.response.ResponseHeaderFieldType;
 
 public class HeaderFieldTypeRegistry {
@@ -16,10 +17,14 @@ public class HeaderFieldTypeRegistry {
 		}
 	}
 
-	public static HeaderFieldType get(String headerName) throws CharacterCodingException {
+	public static HeaderFieldType get(String headerName) throws IllegalHeaderNameException {
 		HeaderFieldType type = types.get(headerName);
 		if (type == null) {
-			type = new UnknownHeaderFieldType(headerName);
+			try {
+				type = new UnknownHeaderFieldType(headerName);
+			} catch (CharacterCodingException e) {
+				throw new IllegalHeaderNameException(headerName + " is not a legal header name", e);
+			}
 			HeaderFieldType actual = types.putIfAbsent(headerName, type);
 			if (actual != null) {
 				type = actual;

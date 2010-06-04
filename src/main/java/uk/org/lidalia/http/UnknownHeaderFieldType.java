@@ -2,18 +2,20 @@ package uk.org.lidalia.http;
 
 import java.nio.charset.CharacterCodingException;
 
-public class UnknownHeaderFieldType extends HeaderFieldType {
+import uk.org.lidalia.http.exception.IllegalHeaderValueException;
 
-	public UnknownHeaderFieldType(String headerName) throws CharacterCodingException {
+class UnknownHeaderFieldType extends HeaderFieldType {
+
+	UnknownHeaderFieldType(String headerName) throws CharacterCodingException {
 		super(headerName);
 	}
 
 	@Override
-	public Text parseValue(String headerValue) {
+	public HeaderFieldValue parseValue(String headerValue) throws IllegalHeaderValueException {
 		try {
-			return new Text(headerValue);
+			return new DefaultHeaderFieldValue(new Text(headerValue));
 		} catch (CharacterCodingException e) {
-			throw new IllegalArgumentException(e);
+			throw new IllegalHeaderValueException(e);
 		}
 	}
 }

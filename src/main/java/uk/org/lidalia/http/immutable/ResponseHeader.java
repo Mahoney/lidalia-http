@@ -4,11 +4,15 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang.Validate;
+import org.joda.time.Seconds;
 
+import uk.org.lidalia.http.HeaderFieldValue;
+import uk.org.lidalia.http.PositiveSeconds;
 import uk.org.lidalia.http.exception.InvalidHeaderException;
 import uk.org.lidalia.http.response.Reason;
 import uk.org.lidalia.http.response.ResponseCode;
 import uk.org.lidalia.http.response.ResponseCodeRegistry;
+import uk.org.lidalia.http.response.ResponseHeaderFieldType;
 
 public class ResponseHeader implements uk.org.lidalia.http.response.ResponseHeader {
 	
@@ -66,6 +70,30 @@ public class ResponseHeader implements uk.org.lidalia.http.response.ResponseHead
 	@Override
 	public String toString() {
 		return "HTTP/1.1 " + code + " " + reason + "\r\n" + headers;
+	}
+
+	@Override
+	public HeaderFieldValue getAcceptRanges() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Seconds getAge() {
+		PositiveSeconds positiveSeconds = (PositiveSeconds) headers.get(ResponseHeaderFieldType.AGE);
+		return positiveSeconds != null ? positiveSeconds.getSeconds() : null;
+	}
+
+	@Override
+	public HeaderFieldValue getEtag() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public HeaderFieldValue getLocation() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

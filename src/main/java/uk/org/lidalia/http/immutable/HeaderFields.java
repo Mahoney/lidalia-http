@@ -1,6 +1,5 @@
 package uk.org.lidalia.http.immutable;
 
-import java.nio.charset.CharacterCodingException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -12,16 +11,19 @@ import org.apache.commons.lang.Validate;
 
 import uk.org.lidalia.http.HeaderFieldType;
 import uk.org.lidalia.http.HeaderField;
+import uk.org.lidalia.http.HeaderFieldValue;
+import uk.org.lidalia.http.exception.IllegalHeaderNameException;
+import uk.org.lidalia.http.exception.IllegalHeaderValueException;
 
 public class HeaderFields implements uk.org.lidalia.http.HeaderFields {
 	
 	private final Map<HeaderFieldType, HeaderField> headers = new LinkedHashMap<HeaderFieldType, HeaderField>();
 	
-	public HeaderFields(String headersString) throws CharacterCodingException {
+	public HeaderFields(String headersString) throws IllegalHeaderNameException, IllegalHeaderValueException {
 		this(parseHeaders(headersString));
 	}
 
-	private static HeaderField[] parseHeaders(String headersString) throws CharacterCodingException {
+	private static HeaderField[] parseHeaders(String headersString) throws IllegalHeaderNameException, IllegalHeaderValueException {
 		String headersWithoutLinearWhitespace = headersString.replaceAll("\r\n( |\t)+", " ");
 		String[] headerStrings = StringUtils.split(headersWithoutLinearWhitespace, "\r\n");
 		List<HeaderField> headers = new ArrayList<HeaderField>();
@@ -31,19 +33,20 @@ public class HeaderFields implements uk.org.lidalia.http.HeaderFields {
 		return headers.toArray(new HeaderField[] {});
 	}
 
-	public HeaderFields(HeaderField... newHeaders) throws CharacterCodingException {
+	public HeaderFields(HeaderField... newHeaders) throws IllegalHeaderNameException, IllegalHeaderValueException {
 		for (HeaderField header : newHeaders) {
-			HeaderField existingHeader = headers.get(header.getName());
+			HeaderFieldType headerType = header.getName();
+			HeaderField existingHeader = headers.get(headerType);
 			if (existingHeader == null) {
-				headers.put(header.getName(), header);
+				headers.put(headerType, header);
 			} else {
-				headers.put(header.getName(), new HeaderField(header.getName() + ": " + existingHeader.getValue() + ", " + header.getValue()));
+				headers.put(headerType, new HeaderField(headerType, headerType.parseValue(existingHeader.getValue() + ", " + header.getValue())));
 			}
 		}
 	}
 
 	@Override
-	public Object get(HeaderFieldType name) {
+	public HeaderFieldValue get(HeaderFieldType name) {
 		Validate.notNull(name, "HeaderFieldType cannot be null");
 		HeaderField header = headers.get(name);
 		return header != null ? header.getValue() : null;

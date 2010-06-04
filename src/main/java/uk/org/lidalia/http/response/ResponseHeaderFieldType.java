@@ -9,21 +9,33 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Map;
 
+import uk.org.lidalia.http.DefaultHeaderFieldValue;
 import uk.org.lidalia.http.HeaderFieldType;
+import uk.org.lidalia.http.HeaderFieldValue;
+import uk.org.lidalia.http.PositiveSecondsType;
 import uk.org.lidalia.http.Text;
+import uk.org.lidalia.http.exception.IllegalHeaderValueException;
 
 public class ResponseHeaderFieldType extends HeaderFieldType {
 
-	public static final ResponseHeaderFieldType ACCEPT_RANGES		= makeResponseHeaderFieldType("Accept-Ranges");
-	public static final ResponseHeaderFieldType AGE					= makeResponseHeaderFieldType("Age");
-	public static final ResponseHeaderFieldType ETAG				= makeResponseHeaderFieldType("Etag");
-	public static final ResponseHeaderFieldType LOCATION			= makeResponseHeaderFieldType("Location");
-	public static final ResponseHeaderFieldType PROXY_AUTHENTICATE	= makeResponseHeaderFieldType("Proxy-Authenticate");
-	public static final ResponseHeaderFieldType RETRY_AFTER			= makeResponseHeaderFieldType("Retry-After");
-	public static final ResponseHeaderFieldType SERVER				= makeResponseHeaderFieldType("Server");
-	public static final ResponseHeaderFieldType VARY				= makeResponseHeaderFieldType("Vary");
-	public static final ResponseHeaderFieldType WWW_AUTHENTICATE	= makeResponseHeaderFieldType("WWW-Authenticate");
-	public static final ResponseHeaderFieldType SET_COOKIE			= makeResponseHeaderFieldType("Set-Cookie");
+	public static final ResponseHeaderFieldType ACCEPT_RANGES		= makeResponseHeaderFieldType	("Accept-Ranges");
+	public static final PositiveSecondsType 	AGE				    = makePositiveSecondsType		("Age");
+	public static final ResponseHeaderFieldType ETAG				= makeResponseHeaderFieldType	("Etag");
+	public static final ResponseHeaderFieldType LOCATION			= makeResponseHeaderFieldType	("Location");
+	public static final ResponseHeaderFieldType PROXY_AUTHENTICATE	= makeResponseHeaderFieldType	("Proxy-Authenticate");
+	public static final ResponseHeaderFieldType RETRY_AFTER			= makeResponseHeaderFieldType	("Retry-After");
+	public static final ResponseHeaderFieldType SERVER				= makeResponseHeaderFieldType	("Server");
+	public static final ResponseHeaderFieldType VARY				= makeResponseHeaderFieldType	("Vary");
+	public static final ResponseHeaderFieldType WWW_AUTHENTICATE	= makeResponseHeaderFieldType	("WWW-Authenticate");
+	public static final ResponseHeaderFieldType SET_COOKIE			= makeResponseHeaderFieldType	("Set-Cookie");
+	
+	private static PositiveSecondsType makePositiveSecondsType(String safeHeaderName) {
+		try {
+			return new PositiveSecondsType(safeHeaderName);
+		} catch (CharacterCodingException e) {
+			throw new IllegalStateException("It should not be possible to get a character coding exception from any of the predefined ResponseHeaderFieldTypes", e);
+		}
+	}
 	
 	private static ResponseHeaderFieldType makeResponseHeaderFieldType(String safeHeaderName) {
 		try {
@@ -33,14 +45,14 @@ public class ResponseHeaderFieldType extends HeaderFieldType {
 		}
 	}
 
-	private ResponseHeaderFieldType(String name) throws CharacterCodingException {
+	public ResponseHeaderFieldType(String name) throws CharacterCodingException {
 		super(name);
 	}
 	
 	@Override
-	public Text parseValue(String headerValue) {
+	public HeaderFieldValue parseValue(String headerValue) throws IllegalHeaderValueException {
 		try {
-			return new Text(headerValue);
+			return new DefaultHeaderFieldValue(new Text(headerValue));
 		} catch (CharacterCodingException e) {
 			throw new IllegalArgumentException(e);
 		}

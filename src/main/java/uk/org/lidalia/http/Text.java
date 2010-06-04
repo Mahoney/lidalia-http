@@ -14,7 +14,6 @@ public class Text extends StringWrapper {
 	private static final int UNIT_SEPARATOR = 31;
 	private static final int SPACE = 32;
 	private static final int DEL = 127;
-	
 
 	public Text(String text) throws CharacterCodingException {
 		super(text);
