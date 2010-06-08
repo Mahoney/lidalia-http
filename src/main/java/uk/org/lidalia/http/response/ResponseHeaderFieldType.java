@@ -11,6 +11,7 @@ import java.util.Map;
 
 import uk.org.lidalia.http.DefaultHeaderFieldValue;
 import uk.org.lidalia.http.HeaderFieldType;
+import uk.org.lidalia.http.HeaderFieldTypeRegistry;
 import uk.org.lidalia.http.HeaderFieldValue;
 import uk.org.lidalia.http.PositiveSecondsType;
 import uk.org.lidalia.http.Text;
@@ -31,7 +32,9 @@ public class ResponseHeaderFieldType extends HeaderFieldType {
 	
 	private static PositiveSecondsType makePositiveSecondsType(String safeHeaderName) {
 		try {
-			return new PositiveSecondsType(safeHeaderName);
+			PositiveSecondsType positiveSecondsType = new PositiveSecondsType(safeHeaderName);
+			HeaderFieldTypeRegistry.registerResponseHeaderFieldType(positiveSecondsType);
+			return positiveSecondsType;
 		} catch (CharacterCodingException e) {
 			throw new IllegalStateException("It should not be possible to get a character coding exception from any of the predefined ResponseHeaderFieldTypes", e);
 		}
@@ -39,7 +42,9 @@ public class ResponseHeaderFieldType extends HeaderFieldType {
 	
 	private static ResponseHeaderFieldType makeResponseHeaderFieldType(String safeHeaderName) {
 		try {
-			return new ResponseHeaderFieldType(safeHeaderName);
+			ResponseHeaderFieldType responseHeaderFieldType = new ResponseHeaderFieldType(safeHeaderName);
+			HeaderFieldTypeRegistry.registerResponseHeaderFieldType(responseHeaderFieldType);
+			return responseHeaderFieldType;
 		} catch (CharacterCodingException e) {
 			throw new IllegalStateException("It should not be possible to get a character coding exception from any of the predefined ResponseHeaderFieldTypes", e);
 		}

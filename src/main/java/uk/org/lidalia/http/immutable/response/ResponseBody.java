@@ -1,4 +1,4 @@
-package uk.org.lidalia.http.immutable;
+package uk.org.lidalia.http.immutable.response;
 
 public class ResponseBody implements uk.org.lidalia.http.response.ResponseBody {
 	

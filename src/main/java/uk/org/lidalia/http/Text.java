@@ -4,6 +4,9 @@ import java.nio.CharBuffer;
 import java.nio.charset.CharacterCodingException;
 import java.nio.charset.CharsetEncoder;
 
+import uk.org.lidalia.CharSets;
+import uk.org.lidalia.StringWrapper;
+
 
 public class Text extends StringWrapper {
 

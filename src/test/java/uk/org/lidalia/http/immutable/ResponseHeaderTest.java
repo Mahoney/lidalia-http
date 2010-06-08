@@ -15,7 +15,7 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import uk.org.lidalia.http.exception.InvalidHeaderException;
-import uk.org.lidalia.http.immutable.ResponseHeader;
+import uk.org.lidalia.http.immutable.response.ResponseHeader;
 import uk.org.lidalia.http.response.Reason;
 import uk.org.lidalia.http.response.ResponseCode;
 

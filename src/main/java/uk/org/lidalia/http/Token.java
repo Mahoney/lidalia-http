@@ -5,6 +5,8 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.lang.Validate;
 
+import uk.org.lidalia.StringWrapper;
+
 public class Token extends StringWrapper {
 	
 	private static final String LEGAL_CHARS_STRING = "[a-zA-Z0-9!#\\$%&'\\*\\+\\-\\.\\^_`\\|~]+";

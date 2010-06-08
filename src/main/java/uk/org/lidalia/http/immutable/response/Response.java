@@ -1,4 +1,4 @@
-package uk.org.lidalia.http.immutable;
+package uk.org.lidalia.http.immutable.response;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;

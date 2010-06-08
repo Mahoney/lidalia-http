@@ -1,4 +1,4 @@
-package uk.org.lidalia.http.immutable;
+package uk.org.lidalia.http.immutable.response;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -9,6 +9,7 @@ import org.joda.time.Seconds;
 import uk.org.lidalia.http.HeaderFieldValue;
 import uk.org.lidalia.http.PositiveSeconds;
 import uk.org.lidalia.http.exception.InvalidHeaderException;
+import uk.org.lidalia.http.immutable.HeaderFields;
 import uk.org.lidalia.http.response.Reason;
 import uk.org.lidalia.http.response.ResponseCode;
 import uk.org.lidalia.http.response.ResponseCodeRegistry;

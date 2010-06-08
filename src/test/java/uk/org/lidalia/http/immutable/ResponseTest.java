@@ -18,6 +18,9 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import uk.org.lidalia.http.exception.InvalidResponseException;
+import uk.org.lidalia.http.immutable.response.Response;
+import uk.org.lidalia.http.immutable.response.ResponseBody;
+import uk.org.lidalia.http.immutable.response.ResponseHeader;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({Response.class, ResponseBody.class})
