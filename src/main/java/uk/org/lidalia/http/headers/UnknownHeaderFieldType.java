@@ -1,7 +1,8 @@
-package uk.org.lidalia.http;
+package uk.org.lidalia.http.headers;
 
 import java.nio.charset.CharacterCodingException;
 
+import uk.org.lidalia.http.Text;
 import uk.org.lidalia.http.exception.IllegalHeaderValueException;
 
 class UnknownHeaderFieldType extends HeaderFieldType {

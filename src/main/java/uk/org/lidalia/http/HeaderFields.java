@@ -2,11 +2,14 @@ package uk.org.lidalia.http;
 
 import java.util.Iterator;
 
+import uk.org.lidalia.http.headers.HeaderFieldType;
+import uk.org.lidalia.http.headers.HeaderFieldValue;
+
 public interface HeaderFields extends Iterable<HeaderField> {
 
-	public abstract HeaderFieldValue get(HeaderFieldType name);
+	HeaderFieldValue get(HeaderFieldType name);
 
-	public abstract Iterator<HeaderField> iterator();
+	Iterator<HeaderField> iterator();
 	
 	int size();
 	

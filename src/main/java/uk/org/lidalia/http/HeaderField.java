@@ -5,8 +5,11 @@ import org.apache.commons.lang.Validate;
 
 import uk.org.lidalia.http.exception.IllegalHeaderNameException;
 import uk.org.lidalia.http.exception.IllegalHeaderValueException;
+import uk.org.lidalia.http.headers.HeaderFieldType;
+import uk.org.lidalia.http.headers.HeaderFieldTypeRegistry;
+import uk.org.lidalia.http.headers.HeaderFieldValue;
 
-public class HeaderField {
+public final class HeaderField {
 	
 	protected final HeaderFieldType name;
 	protected final HeaderFieldValue value;

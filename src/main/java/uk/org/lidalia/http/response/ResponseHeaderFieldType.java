@@ -9,13 +9,13 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Map;
 
-import uk.org.lidalia.http.DefaultHeaderFieldValue;
-import uk.org.lidalia.http.HeaderFieldType;
-import uk.org.lidalia.http.HeaderFieldTypeRegistry;
-import uk.org.lidalia.http.HeaderFieldValue;
-import uk.org.lidalia.http.PositiveSecondsType;
 import uk.org.lidalia.http.Text;
 import uk.org.lidalia.http.exception.IllegalHeaderValueException;
+import uk.org.lidalia.http.headers.DefaultHeaderFieldValue;
+import uk.org.lidalia.http.headers.HeaderFieldType;
+import uk.org.lidalia.http.headers.HeaderFieldTypeRegistry;
+import uk.org.lidalia.http.headers.HeaderFieldValue;
+import uk.org.lidalia.http.headers.PositiveSecondsType;
 
 public class ResponseHeaderFieldType extends HeaderFieldType {
 

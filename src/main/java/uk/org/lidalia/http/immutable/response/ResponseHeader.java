@@ -6,9 +6,9 @@ import java.util.regex.Pattern;
 import org.apache.commons.lang.Validate;
 import org.joda.time.Seconds;
 
-import uk.org.lidalia.http.HeaderFieldValue;
-import uk.org.lidalia.http.PositiveSeconds;
 import uk.org.lidalia.http.exception.InvalidHeaderException;
+import uk.org.lidalia.http.headers.HeaderFieldValue;
+import uk.org.lidalia.http.headers.PositiveSeconds;
 import uk.org.lidalia.http.immutable.HeaderFields;
 import uk.org.lidalia.http.response.Reason;
 import uk.org.lidalia.http.response.ResponseCode;

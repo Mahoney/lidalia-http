@@ -1,4 +1,4 @@
-package uk.org.lidalia.http;
+package uk.org.lidalia.http.headers;
 
 import java.nio.charset.CharacterCodingException;
 

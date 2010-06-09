@@ -14,6 +14,7 @@ import org.junit.runner.RunWith;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
+import uk.org.lidalia.http.AbstractHeaderFields;
 import uk.org.lidalia.http.exception.InvalidHeaderException;
 import uk.org.lidalia.http.immutable.response.ResponseHeader;
 import uk.org.lidalia.http.response.Reason;
@@ -25,7 +26,7 @@ public class ResponseHeaderTest {
 
 	@Test
 	public void stringConstructorParsesCodeAndReasonAndConstructsHeaderFieldsWithEmptyString() throws Exception {
-		HeaderFields headerFieldsMock = createMockAndExpectNew(HeaderFields.class, "header1: value\r\nheader2: value\r\n");
+		AbstractHeaderFields headerFieldsMock = createMockAndExpectNew(HeaderFields.class, "header1: value\r\nheader2: value\r\n");
 		replayAll();
 
 		ResponseHeader header = new ResponseHeader("HTTP/1.1 200 OK here\r\nheader1: value\r\nheader2: value\r\n");
@@ -38,7 +39,7 @@ public class ResponseHeaderTest {
 	
 	@Test
 	public void stringConstructorCanHaveNoCRLFAfterLastHeader() throws Exception {
-		HeaderFields headerFieldsMock = createMockAndExpectNew(HeaderFields.class, "header1: value\r\nheader2: value");
+		AbstractHeaderFields headerFieldsMock = createMockAndExpectNew(HeaderFields.class, "header1: value\r\nheader2: value");
 		replayAll();
 
 		ResponseHeader header = new ResponseHeader("HTTP/1.1 200 OK here\r\nheader1: value\r\nheader2: value");
@@ -51,7 +52,7 @@ public class ResponseHeaderTest {
 	
 	@Test
 	public void stringConstructorCanHaveEmptyReason() throws Throwable {
-		HeaderFields headerFieldsMock = createMockAndExpectNew(HeaderFields.class, "header1: value\r\nheader2: value\r\n");
+		AbstractHeaderFields headerFieldsMock = createMockAndExpectNew(HeaderFields.class, "header1: value\r\nheader2: value\r\n");
 		replayAll();
 
 		ResponseHeader header = new ResponseHeader("HTTP/1.1 200 \r\nheader1: value\r\nheader2: value\r\n");
@@ -64,7 +65,7 @@ public class ResponseHeaderTest {
 
 	@Test
 	public void stringConstructorCanHaveEmptyHeaders() throws Throwable {
-		HeaderFields headerFieldsMock = createMockAndExpectNew(HeaderFields.class, "");
+		AbstractHeaderFields headerFieldsMock = createMockAndExpectNew(HeaderFields.class, "");
 		replayAll();
 		
 		ResponseHeader header = new ResponseHeader("HTTP/1.1 200 OK here\r\n");
@@ -77,7 +78,7 @@ public class ResponseHeaderTest {
 	
 	@Test
 	public void stringConstructorCanHaveEmptyReasonAndEmptyHeaders() throws Throwable {
-		HeaderFields headerFieldsMock = createMockAndExpectNew(HeaderFields.class, "");
+		AbstractHeaderFields headerFieldsMock = createMockAndExpectNew(HeaderFields.class, "");
 		replayAll();
 
 		ResponseHeader header = new ResponseHeader("HTTP/1.1 200 \r\n");

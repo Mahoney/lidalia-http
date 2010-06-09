@@ -1,7 +1,8 @@
-package uk.org.lidalia.http;
+package uk.org.lidalia.http.headers;
 
 import java.nio.charset.CharacterCodingException;
 
+import uk.org.lidalia.http.Token;
 import uk.org.lidalia.http.exception.IllegalHeaderValueException;
 
 public abstract class HeaderFieldType extends Token {

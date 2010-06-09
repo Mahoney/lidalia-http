@@ -3,7 +3,7 @@ package uk.org.lidalia.http.response;
 import org.joda.time.Seconds;
 
 import uk.org.lidalia.http.Header;
-import uk.org.lidalia.http.HeaderFieldValue;
+import uk.org.lidalia.http.headers.HeaderFieldValue;
 
 public interface ResponseHeader extends Header {
 

@@ -1,4 +1,6 @@
-package uk.org.lidalia.http;
+package uk.org.lidalia.http.headers;
+
+import uk.org.lidalia.http.Text;
 
 
 public final class DefaultHeaderFieldValue extends HeaderFieldValue {
