@@ -6,19 +6,19 @@ import org.apache.commons.lang.Validate;
 import org.joda.time.Seconds;
 
 import uk.org.lidalia.http.Text;
-import uk.org.lidalia.http.exception.IllegalHeaderValueException;
+import uk.org.lidalia.http.exception.IllegalHeaderFieldValueException;
 
 public final class PositiveSeconds extends HeaderFieldValue {
 
 	private final Seconds seconds;
 	
-	public PositiveSeconds(Seconds seconds) throws IllegalHeaderValueException {
+	public PositiveSeconds(Seconds seconds) throws IllegalHeaderFieldValueException {
 		try {
 			Validate.notNull(seconds);
 			Validate.isTrue(seconds.getSeconds() >= 0);
 			this.seconds = seconds;
 		} catch (Exception exception) {
-			throw new IllegalHeaderValueException(seconds + " is not a positive not-null value", exception);
+			throw new IllegalHeaderFieldValueException(seconds + " is not a positive not-null value", exception);
 		}
 	}
 	

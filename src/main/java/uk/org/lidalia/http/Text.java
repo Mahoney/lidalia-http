@@ -7,7 +7,6 @@ import java.nio.charset.CharsetEncoder;
 import uk.org.lidalia.CharSets;
 import uk.org.lidalia.StringWrapper;
 
-
 public class Text extends StringWrapper {
 
 	private static final int NULL = 0;

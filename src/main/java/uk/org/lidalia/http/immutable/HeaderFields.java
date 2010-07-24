@@ -4,18 +4,18 @@ import java.util.Collections;
 import java.util.Iterator;
 
 
-import uk.org.lidalia.http.AbstractHeaderFields;
 import uk.org.lidalia.http.HeaderField;
-import uk.org.lidalia.http.exception.IllegalHeaderNameException;
-import uk.org.lidalia.http.exception.IllegalHeaderValueException;
+import uk.org.lidalia.http.exception.IllegalHeaderFieldNameException;
+import uk.org.lidalia.http.exception.IllegalHeaderFieldValueException;
+import uk.org.lidalia.http.headers.AbstractHeaderFields;
 
 public final class HeaderFields extends AbstractHeaderFields {
 	
-	public HeaderFields(String headersString) throws IllegalHeaderNameException, IllegalHeaderValueException {
+	public HeaderFields(String headersString) throws IllegalHeaderFieldNameException, IllegalHeaderFieldValueException {
 		super(headersString);
 	}
 
-	public HeaderFields(HeaderField... newHeaders) throws IllegalHeaderNameException, IllegalHeaderValueException {
+	public HeaderFields(HeaderField... newHeaders) throws IllegalHeaderFieldNameException, IllegalHeaderFieldValueException {
 		super(newHeaders);
 	}
 

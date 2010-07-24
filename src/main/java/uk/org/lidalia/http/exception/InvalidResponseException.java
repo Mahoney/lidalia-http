@@ -1,6 +1,8 @@
 package uk.org.lidalia.http.exception;
 
 public class InvalidResponseException extends Exception {
+	
+	private static final long serialVersionUID = 1L;
 
 	public InvalidResponseException(String responseString) {
 		this(responseString, null);

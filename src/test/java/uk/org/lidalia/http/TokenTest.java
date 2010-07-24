@@ -8,6 +8,8 @@ import java.util.concurrent.Callable;
 
 import org.junit.Test;
 
+import uk.org.lidalia.http.exception.IllegalTokenException;
+
 
 public class TokenTest {
 	
@@ -64,7 +66,7 @@ public class TokenTest {
 	}
 
 	private void assertExpectedIllegalArgumentExceptionThrown(final String constructorArgument) throws Throwable {
-		IllegalArgumentException exception = shouldThrow("Using constructor argument [" + constructorArgument + "]", IllegalArgumentException.class, new Callable<Void>() {
+		IllegalTokenException exception = shouldThrow("Using constructor argument [" + constructorArgument + "]", IllegalTokenException.class, new Callable<Void>() {
 			@Override
 			public Void call() throws Exception {
 				new Token(constructorArgument);

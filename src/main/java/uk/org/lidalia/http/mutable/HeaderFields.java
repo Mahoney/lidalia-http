@@ -1,18 +1,24 @@
 package uk.org.lidalia.http.mutable;
 
-import java.util.Collection;
 import java.util.Iterator;
-import java.util.Set;
 
-import uk.org.lidalia.http.AbstractHeaderFields;
 import uk.org.lidalia.http.HeaderField;
-import uk.org.lidalia.http.exception.IllegalHeaderNameException;
-import uk.org.lidalia.http.exception.IllegalHeaderValueException;
-import uk.org.lidalia.http.headers.HeaderFieldType;
+import uk.org.lidalia.http.exception.IllegalHeaderFieldNameException;
+import uk.org.lidalia.http.exception.IllegalHeaderFieldValueException;
+import uk.org.lidalia.http.headers.AbstractHeaderFields;
+import uk.org.lidalia.http.headers.HeaderFieldName;
 
 public class HeaderFields extends AbstractHeaderFields {
 
-	public HeaderFields(HeaderField[] newHeaders) throws IllegalHeaderNameException, IllegalHeaderValueException {
+	public HeaderFields() {
+		super();
+	}
+
+	public HeaderFields(String headersString) throws IllegalHeaderFieldNameException, IllegalHeaderFieldValueException {
+		super(headersString);
+	}
+
+	public HeaderFields(HeaderField... newHeaders) throws IllegalHeaderFieldNameException, IllegalHeaderFieldValueException {
 		super(newHeaders);
 	}
 
@@ -20,21 +26,19 @@ public class HeaderFields extends AbstractHeaderFields {
 	public Iterator<HeaderField> iterator() {
 		return headers.values().iterator();
 	}
-
-	public void add(HeaderField header) {
-		HeaderFieldType headerType = header.getName();
-		HeaderField existingHeader = headers.get(headerType);
-		if (existingHeader == null) {
-			headers.put(headerType, header);
-		} else {
-			headers.put(headerType, new HeaderField(headerType, headerType.parseValue(existingHeader.getValue() + ", " + header.getValue())));
-		}
-		headers.put(header.getName(), header);
+	
+	public void set(HeaderField header) {
+		HeaderFieldName name = header.getName();
+		headers.put(name, header);
 	}
 
-	public void addAll(Set<HeaderField> headers) {
-		for (HeaderField headerField : headers) {
-			add(headerField);
+	public void add(HeaderField header) throws IllegalHeaderFieldValueException {
+		HeaderFieldName name = header.getName();
+		HeaderField existingHeader = headers.get(name);
+		if (existingHeader == null) {
+			headers.put(name, header);
+		} else {
+			headers.put(name, new HeaderField(name, name.parseValue(existingHeader.getValue() + ", " + header.getValue())));
 		}
 	}
 
@@ -42,13 +46,7 @@ public class HeaderFields extends AbstractHeaderFields {
 		headers.clear();
 	}
 
-	public boolean remove(Object o) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	public boolean removeAll(Collection<?> c) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean remove(HeaderField header) {
+		return headers.remove(header) != null;
 	}
 }

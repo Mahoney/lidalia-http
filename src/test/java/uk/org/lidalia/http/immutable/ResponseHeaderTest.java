@@ -14,14 +14,14 @@ import org.junit.runner.RunWith;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import uk.org.lidalia.http.AbstractHeaderFields;
 import uk.org.lidalia.http.exception.InvalidHeaderException;
+import uk.org.lidalia.http.headers.AbstractHeaderFields;
 import uk.org.lidalia.http.immutable.response.ResponseHeader;
 import uk.org.lidalia.http.response.Reason;
 import uk.org.lidalia.http.response.ResponseCode;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(ResponseHeader.class)
+@PrepareForTest({ResponseHeader.class, HeaderFields.class})
 public class ResponseHeaderTest {
 
 	@Test
