@@ -24,11 +24,15 @@ public class ResponseHeader extends AbstractResponseHeader {
 	}
 	
 	public ResponseHeader(ResponseCode code) {
-		this(code, null);
+		this(code, new HeaderFields());
 	}
 
 	public ResponseHeader(ResponseCode code, Reason reason) {
 		this(code, reason, new HeaderFields());
+	}
+	
+	public ResponseHeader(ResponseCode code, HeaderFields headerFields) {
+		this(code, code == null ? null : code.getDefaultReason(), headerFields);
 	}
 	
 	public ResponseHeader(ResponseCode code, Reason reason, HeaderFields headerFields) {

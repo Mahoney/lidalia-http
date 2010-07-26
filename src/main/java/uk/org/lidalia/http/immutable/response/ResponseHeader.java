@@ -17,6 +17,26 @@ public class ResponseHeader extends AbstractResponseHeader {
 	private final Reason reason;
 	private final HeaderFields headers;
 	
+	public ResponseHeader(ResponseCode code) {
+		this(code, new HeaderFields());
+	}
+	
+	public ResponseHeader(ResponseCode code, Reason reason) {
+		this(code, reason, new HeaderFields());
+	}
+	
+	public ResponseHeader(ResponseCode code, HeaderFields headers) {
+		this(code, null, headers);
+	}
+
+	public ResponseHeader(ResponseCode code, Reason reason, HeaderFields headers) {
+		Validate.notNull(code);
+		Validate.notNull(headers);
+		this.code = code;
+		this.reason = reason == null ? code.getDefaultReason() : reason;
+		this.headers = headers;
+	}
+	
 	public ResponseHeader(String headerString) throws InvalidHeaderException {
 		try {
 			Matcher headerMatcher = parseHeader(headerString);
@@ -26,15 +46,6 @@ public class ResponseHeader extends AbstractResponseHeader {
 		} catch (Exception e) {
 			throw new InvalidHeaderException(headerString, e);
 		}
-	}
-
-	public ResponseHeader(ResponseCode code, Reason reason, HeaderFields headers) {
-		Validate.notNull(code);
-		Validate.notNull(reason);
-		Validate.notNull(headers);
-		this.code = code;
-		this.reason = reason;
-		this.headers = headers;
 	}
 
 	@Override

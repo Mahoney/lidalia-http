@@ -11,6 +11,10 @@ import uk.org.lidalia.http.headers.AbstractHeaderFields;
 
 public final class HeaderFields extends AbstractHeaderFields {
 	
+	public HeaderFields() {
+		super();
+	}
+	
 	public HeaderFields(String headersString) throws IllegalHeaderFieldNameException, IllegalHeaderFieldValueException {
 		super(headersString);
 	}
