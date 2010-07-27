@@ -31,12 +31,12 @@ public class ResponseTest {
 		IllegalArgumentException exception = shouldThrow(IllegalArgumentException.class, new Callable<Void>() {
 			@Override
 			public Void call() throws Exception {
-				new Response(null, null);
+				new Response((ResponseHeader)null, (ResponseBody)null);
 				return null;
 			}
 		});
 		
-		assertEquals("A Response cannot have a null header", exception.getMessage());
+		assertEquals("header is null", exception.getMessage());
 	}
 	
 	@Test

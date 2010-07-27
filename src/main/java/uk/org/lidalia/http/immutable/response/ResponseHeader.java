@@ -18,11 +18,11 @@ public class ResponseHeader extends AbstractResponseHeader {
 	private final HeaderFields headers;
 	
 	public ResponseHeader(ResponseCode code) {
-		this(code, new HeaderFields());
+		this(code, null, null);
 	}
 	
 	public ResponseHeader(ResponseCode code, Reason reason) {
-		this(code, reason, new HeaderFields());
+		this(code, reason, null);
 	}
 	
 	public ResponseHeader(ResponseCode code, HeaderFields headers) {
@@ -31,10 +31,9 @@ public class ResponseHeader extends AbstractResponseHeader {
 
 	public ResponseHeader(ResponseCode code, Reason reason, HeaderFields headers) {
 		Validate.notNull(code);
-		Validate.notNull(headers);
 		this.code = code;
 		this.reason = reason == null ? code.getDefaultReason() : reason;
-		this.headers = headers;
+		this.headers = headers == null ? new HeaderFields() : headers;
 	}
 	
 	public ResponseHeader(String headerString) throws InvalidHeaderException {

@@ -4,8 +4,10 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
 
 import uk.org.lidalia.http.exception.InvalidResponseException;
+import uk.org.lidalia.http.mutable.HeaderFields;
+import uk.org.lidalia.http.response.AbstractResponse;
 
-public class Response implements uk.org.lidalia.http.response.Response {
+public class Response extends AbstractResponse {
 
 	private final ResponseHeader header;
 	private ResponseBody body;
@@ -41,10 +43,13 @@ public class Response implements uk.org.lidalia.http.response.Response {
 	public ResponseBody getBody() {
 		return body;
 	}
-
-	@Override
-	public String toString() {
-		return header + "\r\n" + body;
+	
+	public void setBody(ResponseBody body) {
+		this.body = body;
 	}
-
+	
+	@Override
+	public HeaderFields getHeaderFields() {
+		return header.getHeaderFields();
+	}
 }

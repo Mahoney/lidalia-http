@@ -4,8 +4,12 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
 
 import uk.org.lidalia.http.exception.InvalidResponseException;
+import uk.org.lidalia.http.immutable.HeaderFields;
+import uk.org.lidalia.http.response.AbstractResponse;
+import uk.org.lidalia.http.response.Reason;
+import uk.org.lidalia.http.response.ResponseCode;
 
-public class Response implements uk.org.lidalia.http.response.Response {
+public class Response extends AbstractResponse {
 
 	private final ResponseHeader header;
 	private final ResponseBody body;
@@ -22,10 +26,42 @@ public class Response implements uk.org.lidalia.http.response.Response {
 		}
 	}
 	
-	public Response(ResponseHeader header, ResponseBody body) throws InvalidResponseException {
-		Validate.notNull(header, "A Response cannot have a null header");
+	public Response(ResponseHeader header, ResponseBody body) {
+		Validate.notNull(header, "header is null");
 		this.header = header;
 		this.body = body;
+	}
+	
+	public Response(ResponseCode code) {
+		this(code, null, null, null);
+	}
+	
+	public Response(ResponseCode code, Reason reason) {
+		this(code, reason, null, null);
+	}
+	
+	public Response(ResponseCode code, HeaderFields headers) {
+		this(code, null, headers, null);
+	}
+
+	public Response(ResponseCode code, Reason reason, HeaderFields headers) {
+		this(code, reason, headers, null);
+	}
+	
+	public Response(ResponseCode code, ResponseBody body) {
+		this(code, null, null, body);
+	}
+	
+	public Response(ResponseCode code, Reason reason, ResponseBody body) {
+		this(code, reason, null, body);
+	}
+	
+	public Response(ResponseCode code, HeaderFields headers, ResponseBody body) {
+		this(code, null, headers, body);
+	}
+
+	public Response(ResponseCode code, Reason reason, HeaderFields headers, ResponseBody body) {
+		this(new ResponseHeader(code, reason, headers), body);
 	}
 
 	@Override
@@ -37,9 +73,9 @@ public class Response implements uk.org.lidalia.http.response.Response {
 	public ResponseBody getBody() {
 		return body;
 	}
-
+	
 	@Override
-	public String toString() {
-		return header + "\r\n" + body;
+	public HeaderFields getHeaderFields() {
+		return header.getHeaderFields();
 	}
 }

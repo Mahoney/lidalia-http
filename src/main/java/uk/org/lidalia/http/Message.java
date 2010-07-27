@@ -6,4 +6,6 @@ public interface Message {
 
 	public abstract Body getBody();
 
+	public abstract HeaderFields getHeaderFields();
+
 }

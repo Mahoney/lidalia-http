@@ -9,4 +9,8 @@ public interface Response extends Message {
 	
 	@Override
 	public ResponseBody getBody();
+
+	public abstract ResponseCode getCode();
+
+	public abstract Reason getReason();
 }
