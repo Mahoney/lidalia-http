@@ -1,16 +1,24 @@
 package uk.org.lidalia.http.response;
 
+import org.joda.time.Seconds;
+
 import uk.org.lidalia.http.Message;
+import uk.org.lidalia.http.headers.HeaderFieldValue;
 
 public interface Response extends Message {
 
 	@Override
-	public ResponseHeader getHeader();
+	ResponseHeader getHeader();
 	
 	@Override
-	public ResponseBody getBody();
+	ResponseBody getBody();
 
-	public abstract ResponseCode getCode();
+	ResponseCode getCode();
 
-	public abstract Reason getReason();
+	Reason getReason();
+	
+	HeaderFieldValue getAcceptRanges();
+	Seconds getAge();
+	HeaderFieldValue getEtag();
+	HeaderFieldValue getLocation();
 }

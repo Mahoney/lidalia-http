@@ -1,6 +1,5 @@
 package uk.org.lidalia.http.immutable.response;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
 
 import uk.org.lidalia.http.exception.InvalidResponseException;
@@ -8,6 +7,7 @@ import uk.org.lidalia.http.immutable.HeaderFields;
 import uk.org.lidalia.http.response.AbstractResponse;
 import uk.org.lidalia.http.response.Reason;
 import uk.org.lidalia.http.response.ResponseCode;
+import uk.org.lidalia.http.response.ResponseStringParser;
 
 public class Response extends AbstractResponse {
 
@@ -16,11 +16,9 @@ public class Response extends AbstractResponse {
 	
 	public Response(String responseString) throws InvalidResponseException {
 		try {
-			Validate.isTrue(responseString.contains("\r\n\r\n"), "A Response must have a double CLRF after the header");
-			String headerString = StringUtils.substringBefore(responseString, "\r\n\r\n");
-			String bodyString = StringUtils.substringAfter(responseString, "\r\n\r\n");
-			this.header = new ResponseHeader(headerString);
-			this.body = ResponseBody.parse(bodyString);
+			ResponseStringParser responseStringParser = new ResponseStringParser(responseString);
+			this.header = new ResponseHeader(responseStringParser.getHeaderString());
+			this.body = ResponseBody.parse(responseStringParser.getBodyString());
 		} catch (Exception e) {
 			throw new InvalidResponseException(responseString, e);
 		}

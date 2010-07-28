@@ -2,8 +2,6 @@ package uk.org.lidalia.http.mutable.response;
 
 import java.util.regex.Matcher;
 
-import org.apache.commons.lang.Validate;
-
 import uk.org.lidalia.http.HeaderField;
 import uk.org.lidalia.http.exception.IllegalHeaderFieldValueException;
 import uk.org.lidalia.http.exception.InvalidHeaderException;
@@ -20,26 +18,26 @@ public class ResponseHeader extends AbstractResponseHeader {
 	private final HeaderFields headers;
 	
 	public ResponseHeader() {
-		this((ResponseCode) null);
+		this(null, null, null);
 	}
 	
 	public ResponseHeader(ResponseCode code) {
-		this(code, new HeaderFields());
+		this(code, null, null);
 	}
 
 	public ResponseHeader(ResponseCode code, Reason reason) {
-		this(code, reason, new HeaderFields());
+		this(code, reason, null);
 	}
 	
 	public ResponseHeader(ResponseCode code, HeaderFields headerFields) {
-		this(code, code == null ? null : code.getDefaultReason(), headerFields);
+		this(code, null, headerFields);
 	}
 	
-	public ResponseHeader(ResponseCode code, Reason reason, HeaderFields headerFields) {
-		Validate.notNull(headerFields, "headerFields is null");
+	public ResponseHeader(ResponseCode code, Reason reason, HeaderFields headers) {
 		this.code = code;
-		this.reason = reason;
-		this.headers = headerFields;
+		Reason defaultReason = code == null ? null : code.getDefaultReason();
+		this.reason = reason == null ? defaultReason : reason;
+		this.headers = headers == null ? new HeaderFields() : headers;
 	}
 	
 	public ResponseHeader(String headerString) throws InvalidHeaderException {
