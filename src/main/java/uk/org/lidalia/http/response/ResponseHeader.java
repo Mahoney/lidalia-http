@@ -4,6 +4,8 @@ import org.joda.time.Seconds;
 
 import uk.org.lidalia.http.Header;
 import uk.org.lidalia.http.headers.HeaderFieldValue;
+import uk.org.lidalia.http.immutable.response.ImmutableResponseHeader;
+import uk.org.lidalia.http.mutable.response.MutableResponseHeader;
 
 public interface ResponseHeader extends Header {
 
@@ -14,4 +16,6 @@ public interface ResponseHeader extends Header {
 	public Seconds getAge();
 	public HeaderFieldValue getEtag();
 	public HeaderFieldValue getLocation();
+	public MutableResponseHeader toMutable();
+	public ImmutableResponseHeader toImmutable();
 }

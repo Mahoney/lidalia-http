@@ -11,8 +11,8 @@ import uk.org.lidalia.http.headers.HeaderFieldValue;
 
 public final class HeaderField {
 	
-	protected final HeaderFieldName name;
-	protected final HeaderFieldValue value;
+	private final HeaderFieldName name;
+	private final HeaderFieldValue value;
 	
 	public HeaderField(String headerString) throws IllegalHeaderFieldNameException, IllegalHeaderFieldValueException {
 		String headerName = StringUtils.substringBefore(headerString, ":");

@@ -5,50 +5,56 @@ import java.util.regex.Matcher;
 import uk.org.lidalia.http.HeaderField;
 import uk.org.lidalia.http.exception.IllegalHeaderFieldValueException;
 import uk.org.lidalia.http.exception.InvalidHeaderException;
-import uk.org.lidalia.http.mutable.HeaderFields;
+import uk.org.lidalia.http.immutable.response.ImmutableResponseHeader;
+import uk.org.lidalia.http.mutable.MutableHeaderFields;
 import uk.org.lidalia.http.response.AbstractResponseHeader;
 import uk.org.lidalia.http.response.Reason;
 import uk.org.lidalia.http.response.ResponseCode;
 import uk.org.lidalia.http.response.ResponseCodeRegistry;
+import uk.org.lidalia.http.response.ResponseHeader;
 
-public class ResponseHeader extends AbstractResponseHeader {
+public class MutableResponseHeader extends AbstractResponseHeader {
 	
 	private ResponseCode code;
 	private Reason reason;
-	private final HeaderFields headers;
+	private final MutableHeaderFields headers;
 	
-	public ResponseHeader() {
+	public MutableResponseHeader() {
 		this(null, null, null);
 	}
 	
-	public ResponseHeader(ResponseCode code) {
+	public MutableResponseHeader(ResponseCode code) {
 		this(code, null, null);
 	}
 
-	public ResponseHeader(ResponseCode code, Reason reason) {
+	public MutableResponseHeader(ResponseCode code, Reason reason) {
 		this(code, reason, null);
 	}
 	
-	public ResponseHeader(ResponseCode code, HeaderFields headerFields) {
-		this(code, null, headerFields);
+	public MutableResponseHeader(ResponseCode code, MutableHeaderFields mutableHeaderFields) {
+		this(code, null, mutableHeaderFields);
 	}
 	
-	public ResponseHeader(ResponseCode code, Reason reason, HeaderFields headers) {
+	public MutableResponseHeader(ResponseCode code, Reason reason, MutableHeaderFields headers) {
 		this.code = code;
 		Reason defaultReason = code == null ? null : code.getDefaultReason();
 		this.reason = reason == null ? defaultReason : reason;
-		this.headers = headers == null ? new HeaderFields() : headers;
+		this.headers = headers == null ? new MutableHeaderFields() : headers;
 	}
 	
-	public ResponseHeader(String headerString) throws InvalidHeaderException {
+	public MutableResponseHeader(String headerString) throws InvalidHeaderException {
 		try {
 			Matcher headerMatcher = parseHeader(headerString);
 			code = ResponseCodeRegistry.get(Integer.valueOf(headerMatcher.group(1)));
 			reason = new Reason(headerMatcher.group(2));
-			headers = new HeaderFields(headerMatcher.group(3));
+			headers = new MutableHeaderFields(headerMatcher.group(3));
 		} catch (Exception e) {
 			throw new InvalidHeaderException(headerString, e);
 		}
+	}
+
+	public MutableResponseHeader(ResponseHeader responseHeader) {
+		this(responseHeader.getCode(), responseHeader.getReason(), responseHeader.getHeaderFields().toMutable());
 	}
 
 	@Override
@@ -70,7 +76,7 @@ public class ResponseHeader extends AbstractResponseHeader {
 	}
 
 	@Override
-	public HeaderFields getHeaderFields() {
+	public MutableHeaderFields getHeaderFields() {
 		return headers;
 	}
 	
@@ -84,5 +90,15 @@ public class ResponseHeader extends AbstractResponseHeader {
 
 	public boolean removeHeaderField(HeaderField header) {
 		return headers.remove(header);
+	}
+
+	@Override
+	public ImmutableResponseHeader toImmutable() {
+		return new ImmutableResponseHeader(this);
+	}
+
+	@Override
+	public MutableResponseHeader toMutable() {
+		return this;
 	}
 }

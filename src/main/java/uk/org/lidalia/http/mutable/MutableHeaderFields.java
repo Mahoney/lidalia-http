@@ -3,23 +3,29 @@ package uk.org.lidalia.http.mutable;
 import java.util.Iterator;
 
 import uk.org.lidalia.http.HeaderField;
+import uk.org.lidalia.http.HeaderFields;
 import uk.org.lidalia.http.exception.IllegalHeaderFieldNameException;
 import uk.org.lidalia.http.exception.IllegalHeaderFieldValueException;
 import uk.org.lidalia.http.headers.AbstractHeaderFields;
 import uk.org.lidalia.http.headers.HeaderFieldName;
+import uk.org.lidalia.http.immutable.ImmutableHeaderFields;
 
-public class HeaderFields extends AbstractHeaderFields {
+public class MutableHeaderFields extends AbstractHeaderFields {
 
-	public HeaderFields() {
+	public MutableHeaderFields() {
 		super();
 	}
 
-	public HeaderFields(String headersString) throws IllegalHeaderFieldNameException, IllegalHeaderFieldValueException {
+	public MutableHeaderFields(String headersString) throws IllegalHeaderFieldNameException, IllegalHeaderFieldValueException {
 		super(headersString);
 	}
 
-	public HeaderFields(HeaderField... newHeaders) throws IllegalHeaderFieldNameException, IllegalHeaderFieldValueException {
+	public MutableHeaderFields(HeaderField... newHeaders) throws IllegalHeaderFieldNameException, IllegalHeaderFieldValueException {
 		super(newHeaders);
+	}
+
+	public MutableHeaderFields(HeaderFields headerFields) {
+		super(headerFields);
 	}
 
 	@Override
@@ -48,5 +54,15 @@ public class HeaderFields extends AbstractHeaderFields {
 
 	public boolean remove(HeaderField header) {
 		return headers.remove(header) != null;
+	}
+
+	@Override
+	public ImmutableHeaderFields toImmutable() {
+		return new ImmutableHeaderFields(this);
+	}
+
+	@Override
+	public MutableHeaderFields toMutable() {
+		return this;
 	}
 }

@@ -16,20 +16,20 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 import uk.org.lidalia.http.exception.InvalidHeaderException;
 import uk.org.lidalia.http.headers.AbstractHeaderFields;
-import uk.org.lidalia.http.immutable.response.ResponseHeader;
+import uk.org.lidalia.http.immutable.response.ImmutableResponseHeader;
 import uk.org.lidalia.http.response.Reason;
 import uk.org.lidalia.http.response.ResponseCode;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({ResponseHeader.class, HeaderFields.class})
+@PrepareForTest({ImmutableResponseHeader.class, ImmutableHeaderFields.class})
 public class ResponseHeaderTest {
 
 	@Test
 	public void stringConstructorParsesCodeAndReasonAndConstructsHeaderFieldsWithEmptyString() throws Exception {
-		AbstractHeaderFields headerFieldsMock = createMockAndExpectNew(HeaderFields.class, "header1: value\r\nheader2: value\r\n");
+		AbstractHeaderFields headerFieldsMock = createMockAndExpectNew(ImmutableHeaderFields.class, "header1: value\r\nheader2: value\r\n");
 		replayAll();
 
-		ResponseHeader header = new ResponseHeader("HTTP/1.1 200 OK here\r\nheader1: value\r\nheader2: value\r\n");
+		ImmutableResponseHeader header = new ImmutableResponseHeader("HTTP/1.1 200 OK here\r\nheader1: value\r\nheader2: value\r\n");
 		assertSame(ResponseCode.OK, header.getCode());
 		assertEquals(new Reason("OK here"), header.getReason());
 		assertSame(headerFieldsMock, header.getHeaderFields());
@@ -39,10 +39,10 @@ public class ResponseHeaderTest {
 	
 	@Test
 	public void stringConstructorCanHaveNoCRLFAfterLastHeader() throws Exception {
-		AbstractHeaderFields headerFieldsMock = createMockAndExpectNew(HeaderFields.class, "header1: value\r\nheader2: value");
+		AbstractHeaderFields headerFieldsMock = createMockAndExpectNew(ImmutableHeaderFields.class, "header1: value\r\nheader2: value");
 		replayAll();
 
-		ResponseHeader header = new ResponseHeader("HTTP/1.1 200 OK here\r\nheader1: value\r\nheader2: value");
+		ImmutableResponseHeader header = new ImmutableResponseHeader("HTTP/1.1 200 OK here\r\nheader1: value\r\nheader2: value");
 		assertSame(ResponseCode.OK, header.getCode());
 		assertEquals(new Reason("OK here"), header.getReason());
 		assertSame(headerFieldsMock, header.getHeaderFields());
@@ -52,10 +52,10 @@ public class ResponseHeaderTest {
 	
 	@Test
 	public void stringConstructorCanHaveEmptyReason() throws Throwable {
-		AbstractHeaderFields headerFieldsMock = createMockAndExpectNew(HeaderFields.class, "header1: value\r\nheader2: value\r\n");
+		AbstractHeaderFields headerFieldsMock = createMockAndExpectNew(ImmutableHeaderFields.class, "header1: value\r\nheader2: value\r\n");
 		replayAll();
 
-		ResponseHeader header = new ResponseHeader("HTTP/1.1 200 \r\nheader1: value\r\nheader2: value\r\n");
+		ImmutableResponseHeader header = new ImmutableResponseHeader("HTTP/1.1 200 \r\nheader1: value\r\nheader2: value\r\n");
 		assertSame(ResponseCode.OK, header.getCode());
 		assertEquals(new Reason(""), header.getReason());
 		assertSame(headerFieldsMock, header.getHeaderFields());
@@ -65,10 +65,10 @@ public class ResponseHeaderTest {
 
 	@Test
 	public void stringConstructorCanHaveEmptyHeaders() throws Throwable {
-		AbstractHeaderFields headerFieldsMock = createMockAndExpectNew(HeaderFields.class, "");
+		AbstractHeaderFields headerFieldsMock = createMockAndExpectNew(ImmutableHeaderFields.class, "");
 		replayAll();
 		
-		ResponseHeader header = new ResponseHeader("HTTP/1.1 200 OK here\r\n");
+		ImmutableResponseHeader header = new ImmutableResponseHeader("HTTP/1.1 200 OK here\r\n");
 		assertSame(ResponseCode.OK, header.getCode());
 		assertEquals(new Reason("OK here"), header.getReason());
 		assertSame(headerFieldsMock, header.getHeaderFields());
@@ -78,10 +78,10 @@ public class ResponseHeaderTest {
 	
 	@Test
 	public void stringConstructorCanHaveEmptyReasonAndEmptyHeaders() throws Throwable {
-		AbstractHeaderFields headerFieldsMock = createMockAndExpectNew(HeaderFields.class, "");
+		AbstractHeaderFields headerFieldsMock = createMockAndExpectNew(ImmutableHeaderFields.class, "");
 		replayAll();
 
-		ResponseHeader header = new ResponseHeader("HTTP/1.1 200 \r\n");
+		ImmutableResponseHeader header = new ImmutableResponseHeader("HTTP/1.1 200 \r\n");
 		assertSame(ResponseCode.OK, header.getCode());
 		assertEquals(new Reason(""), header.getReason());
 		assertSame(headerFieldsMock, header.getHeaderFields());
@@ -117,7 +117,7 @@ public class ResponseHeaderTest {
 		InvalidHeaderException exception = shouldThrow(InvalidHeaderException.class, new Callable<Void>() {
 			@Override
 			public Void call() throws Exception {
-				new ResponseHeader(headerString);
+				new ImmutableResponseHeader(headerString);
 				return null;
 			}
 		});

@@ -4,6 +4,8 @@ import org.joda.time.Seconds;
 
 import uk.org.lidalia.http.Message;
 import uk.org.lidalia.http.headers.HeaderFieldValue;
+import uk.org.lidalia.http.immutable.response.ImmutableResponse;
+import uk.org.lidalia.http.mutable.response.MutableResponse;
 
 public interface Response extends Message {
 
@@ -21,4 +23,7 @@ public interface Response extends Message {
 	Seconds getAge();
 	HeaderFieldValue getEtag();
 	HeaderFieldValue getLocation();
+	
+	MutableResponse toMutable();
+	ImmutableResponse toImmutable();
 }

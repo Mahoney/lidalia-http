@@ -45,6 +45,12 @@ public abstract class AbstractHeaderFields implements HeaderFields {
 			}
 		}
 	}
+	
+	protected AbstractHeaderFields(HeaderFields headerFields) {
+		for (HeaderField header : headerFields) {
+			headers.put(header.getName(), header);
+		}
+	}
 
 	@Override
 	public HeaderFieldValue get(HeaderFieldName headerFieldName) {
@@ -72,4 +78,8 @@ public abstract class AbstractHeaderFields implements HeaderFields {
 		return headers.size();
 	}
 
+	@Override
+	public HeaderField[] toArray() {
+		return null;
+	}
 }

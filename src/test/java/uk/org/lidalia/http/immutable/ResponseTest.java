@@ -18,12 +18,12 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import uk.org.lidalia.http.exception.InvalidResponseException;
-import uk.org.lidalia.http.immutable.response.Response;
-import uk.org.lidalia.http.immutable.response.ResponseBody;
-import uk.org.lidalia.http.immutable.response.ResponseHeader;
+import uk.org.lidalia.http.immutable.response.ImmutableResponse;
+import uk.org.lidalia.http.immutable.response.ImmutableResponseBody;
+import uk.org.lidalia.http.immutable.response.ImmutableResponseHeader;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({Response.class, ResponseBody.class})
+@PrepareForTest({ImmutableResponse.class, ImmutableResponseBody.class})
 public class ResponseTest {
 
 	@Test
@@ -31,7 +31,7 @@ public class ResponseTest {
 		IllegalArgumentException exception = shouldThrow(IllegalArgumentException.class, new Callable<Void>() {
 			@Override
 			public Void call() throws Exception {
-				new Response((ResponseHeader)null, (ResponseBody)null);
+				new ImmutableResponse((ImmutableResponseHeader)null, (ImmutableResponseBody)null);
 				return null;
 			}
 		});
@@ -44,7 +44,7 @@ public class ResponseTest {
 		InvalidResponseException exception = shouldThrow(InvalidResponseException.class, new Callable<Void>() {
 			@Override
 			public Void call() throws Exception {
-				new Response("HTTP/1.1 200 OK\r\n");
+				new ImmutableResponse("HTTP/1.1 200 OK\r\n");
 				return null;
 			}
 		});
@@ -56,19 +56,19 @@ public class ResponseTest {
 	
 	@Test
 	public void constructByStringDelegatesToHeaderAndBodyConstructByString() throws Exception {
-		ResponseHeader headerMock = createMockAndExpectNew(ResponseHeader.class, "header");
-		ResponseBody bodyMock = createMock(ResponseBody.class);
-		mockStatic(ResponseBody.class);
-		expect(ResponseBody.parse("body")).andReturn(bodyMock);
+		ImmutableResponseHeader headerMock = createMockAndExpectNew(ImmutableResponseHeader.class, "header");
+		ImmutableResponseBody bodyMock = createMock(ImmutableResponseBody.class);
+		mockStatic(ImmutableResponseBody.class);
+		expect(ImmutableResponseBody.parse("body")).andReturn(bodyMock);
 		replayAll();
 		
-		Response response = new Response(
+		ImmutableResponse immutableResponse = new ImmutableResponse(
 				"header\r\n" +
 				"\r\n" +
 				"body");
 		
-		assertSame(headerMock, response.getHeader());
-		assertSame(bodyMock, response.getBody());
+		assertSame(headerMock, immutableResponse.getHeader());
+		assertSame(bodyMock, immutableResponse.getBody());
 		
 		verifyAll();
 	}
@@ -78,7 +78,7 @@ public class ResponseTest {
 		String responseString = "HTTP/1.1 200 OK\r\n" +
 				"\r\n" +
 				"somebody";
-		Response response = new Response(responseString);
-		assertEquals(responseString, response.toString());
+		ImmutableResponse immutableResponse = new ImmutableResponse(responseString);
+		assertEquals(responseString, immutableResponse.toString());
 	}
 }
