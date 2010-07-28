@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.Iterator;
 
 
+import uk.org.lidalia.Immutable;
 import uk.org.lidalia.http.HeaderField;
 import uk.org.lidalia.http.HeaderFields;
 import uk.org.lidalia.http.exception.IllegalHeaderFieldNameException;
@@ -11,7 +12,7 @@ import uk.org.lidalia.http.exception.IllegalHeaderFieldValueException;
 import uk.org.lidalia.http.headers.AbstractHeaderFields;
 import uk.org.lidalia.http.mutable.MutableHeaderFields;
 
-public final class ImmutableHeaderFields extends AbstractHeaderFields {
+public final class ImmutableHeaderFields extends AbstractHeaderFields implements Immutable {
 	
 	public ImmutableHeaderFields() {
 		super();
@@ -21,7 +22,7 @@ public final class ImmutableHeaderFields extends AbstractHeaderFields {
 		super(headersString);
 	}
 
-	public ImmutableHeaderFields(HeaderField... newHeaders) throws IllegalHeaderFieldNameException, IllegalHeaderFieldValueException {
+	public ImmutableHeaderFields(HeaderField... newHeaders) throws IllegalHeaderFieldValueException {
 		super(newHeaders);
 	}
 	

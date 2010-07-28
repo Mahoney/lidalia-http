@@ -34,7 +34,7 @@ public abstract class AbstractHeaderFields implements HeaderFields {
 		this(parseHeaders(headersString));
 	}
 
-	protected AbstractHeaderFields(HeaderField... newHeaders) throws IllegalHeaderFieldNameException, IllegalHeaderFieldValueException {
+	protected AbstractHeaderFields(HeaderField... newHeaders) throws IllegalHeaderFieldValueException {
 		for (HeaderField header : newHeaders) {
 			HeaderFieldName name = header.getName();
 			HeaderField existingHeader = headers.get(name);

@@ -4,6 +4,7 @@ import java.util.regex.Matcher;
 
 import org.apache.commons.lang.Validate;
 
+import uk.org.lidalia.Immutable;
 import uk.org.lidalia.http.exception.InvalidHeaderException;
 import uk.org.lidalia.http.immutable.ImmutableHeaderFields;
 import uk.org.lidalia.http.mutable.response.MutableResponseHeader;
@@ -13,7 +14,7 @@ import uk.org.lidalia.http.response.ResponseCode;
 import uk.org.lidalia.http.response.ResponseCodeRegistry;
 import uk.org.lidalia.http.response.ResponseHeader;
 
-public class ImmutableResponseHeader extends AbstractResponseHeader {
+public class ImmutableResponseHeader extends AbstractResponseHeader implements Immutable {
 	
 	private final ResponseCode code;
 	private final Reason reason;

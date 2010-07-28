@@ -1,9 +1,10 @@
 package uk.org.lidalia.http.immutable.response;
 
+import uk.org.lidalia.Immutable;
 import uk.org.lidalia.http.mutable.response.MutableResponseBody;
 import uk.org.lidalia.http.response.ResponseBody;
 
-public class ImmutableResponseBody implements ResponseBody {
+public class ImmutableResponseBody implements ResponseBody, Immutable {
 	
 	private final String body;
 

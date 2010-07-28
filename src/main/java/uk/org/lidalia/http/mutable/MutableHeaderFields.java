@@ -20,7 +20,7 @@ public class MutableHeaderFields extends AbstractHeaderFields {
 		super(headersString);
 	}
 
-	public MutableHeaderFields(HeaderField... newHeaders) throws IllegalHeaderFieldNameException, IllegalHeaderFieldValueException {
+	public MutableHeaderFields(HeaderField... newHeaders) throws IllegalHeaderFieldValueException {
 		super(newHeaders);
 	}
 

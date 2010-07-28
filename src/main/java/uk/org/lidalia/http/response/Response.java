@@ -25,5 +25,7 @@ public interface Response extends Message {
 	HeaderFieldValue getLocation();
 	
 	MutableResponse toMutable();
+	
+	@Override
 	ImmutableResponse toImmutable();
 }

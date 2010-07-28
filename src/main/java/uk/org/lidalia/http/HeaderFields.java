@@ -2,12 +2,13 @@ package uk.org.lidalia.http;
 
 import java.util.Iterator;
 
+import uk.org.lidalia.MakeImmutable;
 import uk.org.lidalia.http.headers.HeaderFieldName;
 import uk.org.lidalia.http.headers.HeaderFieldValue;
 import uk.org.lidalia.http.immutable.ImmutableHeaderFields;
 import uk.org.lidalia.http.mutable.MutableHeaderFields;
 
-public interface HeaderFields extends Iterable<HeaderField> {
+public interface HeaderFields extends Iterable<HeaderField>, MakeImmutable {
 
 	HeaderFieldValue get(HeaderFieldName name);
 
@@ -18,6 +19,7 @@ public interface HeaderFields extends Iterable<HeaderField> {
 	
 	boolean isEmpty();
 
+	@Override
 	ImmutableHeaderFields toImmutable();
 
 	MutableHeaderFields toMutable();

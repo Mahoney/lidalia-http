@@ -17,5 +17,7 @@ public interface ResponseHeader extends Header {
 	public HeaderFieldValue getEtag();
 	public HeaderFieldValue getLocation();
 	public MutableResponseHeader toMutable();
+	
+	@Override
 	public ImmutableResponseHeader toImmutable();
 }

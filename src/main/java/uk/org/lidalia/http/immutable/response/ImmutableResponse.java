@@ -2,6 +2,7 @@ package uk.org.lidalia.http.immutable.response;
 
 import org.apache.commons.lang.Validate;
 
+import uk.org.lidalia.Immutable;
 import uk.org.lidalia.http.exception.InvalidResponseException;
 import uk.org.lidalia.http.immutable.ImmutableHeaderFields;
 import uk.org.lidalia.http.mutable.response.MutableResponse;
@@ -11,7 +12,7 @@ import uk.org.lidalia.http.response.Response;
 import uk.org.lidalia.http.response.ResponseCode;
 import uk.org.lidalia.http.response.ResponseStringParser;
 
-public class ImmutableResponse extends AbstractResponse {
+public class ImmutableResponse extends AbstractResponse implements Immutable {
 
 	private final ImmutableResponseHeader header;
 	private final ImmutableResponseBody body;
