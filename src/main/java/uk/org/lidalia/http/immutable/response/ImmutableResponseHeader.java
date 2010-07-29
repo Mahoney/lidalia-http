@@ -36,8 +36,8 @@ public class ImmutableResponseHeader extends AbstractResponseHeader implements I
 	public ImmutableResponseHeader(ResponseCode code, Reason reason, ImmutableHeaderFields headers) {
 		Validate.notNull(code);
 		this.code = code;
-		this.reason = Utils.thisOrDefault(reason, code.getDefaultReason());
-		this.headers = Utils.thisOrDefault(headers, new ImmutableHeaderFields());
+		this.reason = Utils.valueOrDefault(reason, code.getDefaultReason());
+		this.headers = Utils.valueOrDefault(headers, new ImmutableHeaderFields());
 	}
 	
 	public ImmutableResponseHeader(String headerString) throws InvalidHeaderException {

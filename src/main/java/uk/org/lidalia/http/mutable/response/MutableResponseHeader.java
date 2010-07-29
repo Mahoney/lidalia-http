@@ -39,8 +39,8 @@ public class MutableResponseHeader extends AbstractResponseHeader {
 	public MutableResponseHeader(ResponseCode code, Reason reason, MutableHeaderFields headers) {
 		this.code = code;
 		Reason defaultReason = code == null ? null : code.getDefaultReason();
-		this.reason = Utils.thisOrDefault(reason, defaultReason);
-		this.headers = Utils.thisOrDefault(headers, new MutableHeaderFields());
+		this.reason = Utils.valueOrDefault(reason, defaultReason);
+		this.headers = Utils.valueOrDefault(headers, new MutableHeaderFields());
 	}
 	
 	public MutableResponseHeader(String headerString) throws InvalidHeaderException {

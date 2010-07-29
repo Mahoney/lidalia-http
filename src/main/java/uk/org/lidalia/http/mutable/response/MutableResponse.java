@@ -34,7 +34,7 @@ public class MutableResponse extends AbstractResponse {
 	}
 	
 	public MutableResponse(MutableResponseHeader header, MutableResponseBody body) {
-		this.header = Utils.thisOrDefault(header, new MutableResponseHeader());
+		this.header = Utils.valueOrDefault(header, new MutableResponseHeader());
 		this.body = body;
 	}
 	

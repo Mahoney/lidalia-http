@@ -1,5 +1,7 @@
 package uk.org.lidalia.http;
 
-public interface Body {
+import uk.org.lidalia.CanBeMadeImmutable;
+
+public interface Body extends CanBeMadeImmutable {
 
 }

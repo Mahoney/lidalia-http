@@ -2,11 +2,11 @@ package uk.org.lidalia;
 
 public final class Utils {
 
-	public static <E> E thisOrDefault(E mightBeNull, E defaultValue) {
-		if (mightBeNull == null) {
+	public static <E> E valueOrDefault(E valueWhichMightBeNull, E defaultValue) {
+		if (valueWhichMightBeNull == null) {
 			return defaultValue;
 		} else {
-			return mightBeNull;
+			return valueWhichMightBeNull;
 		}
 	}
 	
