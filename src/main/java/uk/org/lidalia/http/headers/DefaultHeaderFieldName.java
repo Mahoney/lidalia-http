@@ -17,7 +17,7 @@ class DefaultHeaderFieldName extends HeaderFieldName {
 		try {
 			return new DefaultHeaderFieldValue(new Text(headerValue));
 		} catch (CharacterCodingException e) {
-			throw new IllegalHeaderFieldValueException(e);
+			throw new IllegalHeaderFieldValueException(headerValue, this, e);
 		}
 	}
 }

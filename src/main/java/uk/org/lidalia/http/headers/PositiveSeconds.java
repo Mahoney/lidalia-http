@@ -8,47 +8,24 @@ import org.joda.time.Seconds;
 import uk.org.lidalia.http.Text;
 import uk.org.lidalia.http.exception.IllegalHeaderFieldValueException;
 
-public final class PositiveSeconds extends HeaderFieldValue {
+public final class PositiveSeconds extends AbstractHeaderFieldValue<Seconds> {
 
-	private final Seconds seconds;
-	
 	public PositiveSeconds(Seconds seconds) throws IllegalHeaderFieldValueException {
-		try {
-			Validate.notNull(seconds);
-			Validate.isTrue(seconds.getSeconds() >= 0);
-			this.seconds = seconds;
-		} catch (Exception exception) {
-			throw new IllegalHeaderFieldValueException(seconds + " is not a positive not-null value", exception);
-		}
+		super(seconds);
+		Validate.notNull(seconds, "seconds is null");
+		Validate.isTrue(seconds.getSeconds() >= 0, "seconds is negative");
 	}
-	
+
 	public Seconds getSeconds() {
-		return seconds;
+		return wrappedValue;
 	}
-	
+
 	@Override
 	public Text toText() {
 		try {
-			return new Text(Integer.toString(seconds.getSeconds()));
+			return new Text(Integer.toString(wrappedValue.getSeconds()));
 		} catch (CharacterCodingException e) {
-			throw new IllegalStateException("It should be impossible for [" + seconds.getSeconds() + "] to throw this exception", e);
+			throw new IllegalStateException("It should be impossible for [" + wrappedValue.getSeconds() + "] to throw this exception", e);
 		}
 	}
-
-	@Override
-	public int hashCode() {
-		return 31 * seconds.hashCode();
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!(obj instanceof PositiveSeconds))
-			return false;
-		PositiveSeconds other = (PositiveSeconds) obj;
-		return seconds.equals(other.seconds);
-	}
-	
-
 }

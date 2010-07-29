@@ -2,7 +2,9 @@ package uk.org.lidalia.http.response;
 
 import org.apache.commons.lang.Validate;
 
-public final class ResponseCode {
+import uk.org.lidalia.Immutable;
+
+public final class ResponseCode implements Immutable {
 	
 	public static final ResponseCode OK = ResponseCodeRegistry.get(200);
 	
@@ -31,6 +33,11 @@ public final class ResponseCode {
 
 	public Reason getDefaultReason() {
 		return defaultReason;
+	}
+	
+	@Override
+	public ResponseCode toImmutable() {
+		return this;
 	}
 
 }

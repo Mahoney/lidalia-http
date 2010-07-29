@@ -5,6 +5,7 @@ import java.util.regex.Matcher;
 import org.apache.commons.lang.Validate;
 
 import uk.org.lidalia.Immutable;
+import uk.org.lidalia.Utils;
 import uk.org.lidalia.http.exception.InvalidHeaderException;
 import uk.org.lidalia.http.immutable.ImmutableHeaderFields;
 import uk.org.lidalia.http.mutable.response.MutableResponseHeader;
@@ -35,8 +36,8 @@ public class ImmutableResponseHeader extends AbstractResponseHeader implements I
 	public ImmutableResponseHeader(ResponseCode code, Reason reason, ImmutableHeaderFields headers) {
 		Validate.notNull(code);
 		this.code = code;
-		this.reason = reason == null ? code.getDefaultReason() : reason;
-		this.headers = headers == null ? new ImmutableHeaderFields() : headers;
+		this.reason = Utils.thisOrDefault(reason, code.getDefaultReason());
+		this.headers = Utils.thisOrDefault(headers, new ImmutableHeaderFields());
 	}
 	
 	public ImmutableResponseHeader(String headerString) throws InvalidHeaderException {

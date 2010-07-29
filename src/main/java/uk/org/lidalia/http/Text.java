@@ -5,9 +5,9 @@ import java.nio.charset.CharacterCodingException;
 import java.nio.charset.CharsetEncoder;
 
 import uk.org.lidalia.CharSets;
-import uk.org.lidalia.StringWrapper;
+import uk.org.lidalia.WrappedString;
 
-public class Text extends StringWrapper {
+public class Text extends WrappedString {
 
 	private static final int NULL = 0;
 	private static final int HORIZONTAL_TAB = 9;

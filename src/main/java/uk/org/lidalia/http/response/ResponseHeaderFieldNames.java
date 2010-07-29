@@ -16,7 +16,7 @@ import uk.org.lidalia.http.headers.PositiveSecondsHeaderFieldName;
 public class ResponseHeaderFieldNames {
 	
 	public static final HeaderFieldName		ACCEPT_RANGES	= getFromRegistry	("Accept-Ranges");
-	public static final PositiveSecondsHeaderFieldName AGE				= (PositiveSecondsHeaderFieldName) getFromRegistry		("Age");
+	public static final PositiveSecondsHeaderFieldName AGE	= (PositiveSecondsHeaderFieldName) getFromRegistry		("Age");
 	public static final HeaderFieldName	ETAG				= getFromRegistry	("Etag");
 	public static final HeaderFieldName	LOCATION			= getFromRegistry	("Location");
 	public static final HeaderFieldName	PROXY_AUTHENTICATE	= getFromRegistry	("Proxy-Authenticate");

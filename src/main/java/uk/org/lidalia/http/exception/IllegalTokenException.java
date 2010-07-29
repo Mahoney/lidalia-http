@@ -1,22 +1,24 @@
 package uk.org.lidalia.http.exception;
 
-public class IllegalTokenException extends Exception {
+import uk.org.lidalia.http.Token;
+
+public class IllegalTokenException extends uk.org.lidalia.RuntimeException {
 
 	private static final long serialVersionUID = 1L;
-
-	public IllegalTokenException() {
-		super();
+	
+	private final String tokenString;
+	
+	public IllegalTokenException(String tokenString) {
+		this(tokenString, null);
 	}
 
-	public IllegalTokenException(String message, Throwable cause) {
-		super(message, cause);
+	public IllegalTokenException(String tokenString, Throwable cause) {
+		super("[" + tokenString + "] is not a valid Token - must match " + Token.LEGAL_CHARS_STRING, cause);
+		this.tokenString = tokenString;
 	}
 
-	public IllegalTokenException(String message) {
-		super(message);
+	public String getTokenString() {
+		return tokenString;
 	}
-
-	public IllegalTokenException(Throwable cause) {
-		super(cause);
-	}
+	
 }

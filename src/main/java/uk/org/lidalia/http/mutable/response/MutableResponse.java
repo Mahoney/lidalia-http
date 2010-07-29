@@ -1,5 +1,6 @@
 package uk.org.lidalia.http.mutable.response;
 
+import uk.org.lidalia.Utils;
 import uk.org.lidalia.http.exception.InvalidResponseException;
 import uk.org.lidalia.http.immutable.response.ImmutableResponse;
 import uk.org.lidalia.http.mutable.MutableHeaderFields;
@@ -33,7 +34,7 @@ public class MutableResponse extends AbstractResponse {
 	}
 	
 	public MutableResponse(MutableResponseHeader header, MutableResponseBody body) {
-		this.header = header == null ? new MutableResponseHeader() : header;
+		this.header = Utils.thisOrDefault(header, new MutableResponseHeader());
 		this.body = body;
 	}
 	

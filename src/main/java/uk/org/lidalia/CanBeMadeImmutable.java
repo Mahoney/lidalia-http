@@ -1,6 +1,6 @@
 package uk.org.lidalia;
 
-public interface MakeImmutable {
+public interface CanBeMadeImmutable {
 
 	Immutable toImmutable();
 	

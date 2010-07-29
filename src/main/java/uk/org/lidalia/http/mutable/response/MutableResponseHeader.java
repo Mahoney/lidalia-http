@@ -2,6 +2,7 @@ package uk.org.lidalia.http.mutable.response;
 
 import java.util.regex.Matcher;
 
+import uk.org.lidalia.Utils;
 import uk.org.lidalia.http.HeaderField;
 import uk.org.lidalia.http.exception.IllegalHeaderFieldValueException;
 import uk.org.lidalia.http.exception.InvalidHeaderException;
@@ -38,8 +39,8 @@ public class MutableResponseHeader extends AbstractResponseHeader {
 	public MutableResponseHeader(ResponseCode code, Reason reason, MutableHeaderFields headers) {
 		this.code = code;
 		Reason defaultReason = code == null ? null : code.getDefaultReason();
-		this.reason = reason == null ? defaultReason : reason;
-		this.headers = headers == null ? new MutableHeaderFields() : headers;
+		this.reason = Utils.thisOrDefault(reason, defaultReason);
+		this.headers = Utils.thisOrDefault(headers, new MutableHeaderFields());
 	}
 	
 	public MutableResponseHeader(String headerString) throws InvalidHeaderException {

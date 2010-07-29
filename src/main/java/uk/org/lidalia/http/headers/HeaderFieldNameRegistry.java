@@ -19,7 +19,7 @@ public class HeaderFieldNameRegistry {
 			try {
 				headerFieldName = new DefaultHeaderFieldName(headerName);
 			} catch (IllegalTokenException e) {
-				throw new IllegalHeaderFieldNameException(headerName + " is not a legal header name", e);
+				throw new IllegalHeaderFieldNameException(headerName, e);
 			}
 			HeaderFieldName actual = headerFieldNames.putIfAbsent(headerName.toLowerCase(), headerFieldName);
 			if (actual != null) {

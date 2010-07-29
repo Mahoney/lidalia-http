@@ -49,7 +49,7 @@ public class ResponseTest {
 			}
 		});
 		
-		assertEquals("Invalid response: HTTP/1.1 200 OK\r\n", exception.getMessage());
+		assertEquals("Unable to parse [HTTP/1.1 200 OK\r\n] into a valid HTTP Response", exception.getMessage());
 		assertSame(IllegalArgumentException.class, exception.getCause().getClass());
 		assertEquals("A Response must have a double CLRF after the header", exception.getCause().getMessage());
 	}

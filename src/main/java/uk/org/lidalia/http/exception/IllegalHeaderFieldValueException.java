@@ -1,15 +1,29 @@
 package uk.org.lidalia.http.exception;
 
-public class IllegalHeaderFieldValueException extends Exception {
+import uk.org.lidalia.http.headers.HeaderFieldName;
+
+public class IllegalHeaderFieldValueException extends uk.org.lidalia.RuntimeException {
 	
 	private static final long serialVersionUID = 1L;
-
-	public IllegalHeaderFieldValueException(Throwable cause) {
-		super(cause);
+	
+	private final String headerFieldValue;
+	private final HeaderFieldName headerFieldName;
+	
+	public IllegalHeaderFieldValueException(String headerFieldValue, HeaderFieldName headerFieldName) {
+		this(headerFieldValue, headerFieldName, null);
 	}
 
-	public IllegalHeaderFieldValueException(String message, Exception cause) {
-		super(message, cause);
+	public IllegalHeaderFieldValueException(String headerFieldValue,  HeaderFieldName headerFieldName, Throwable cause) {
+		super(headerFieldValue + " is not a legal header field value for " + headerFieldName, cause);
+		this.headerFieldValue = headerFieldValue;
+		this.headerFieldName = headerFieldName;
+	}
+	
+	public String getHeaderFieldValue() {
+		return headerFieldValue;
 	}
 
+	public HeaderFieldName getHeaderFieldName() {
+		return headerFieldName;
+	}
 }

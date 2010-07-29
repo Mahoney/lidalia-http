@@ -13,7 +13,10 @@ public class PositiveSecondsHeaderFieldName extends HeaderFieldName {
 
 	@Override
 	public PositiveSeconds parseValue(String headerValue) throws IllegalHeaderFieldValueException {
-		return new PositiveSeconds(Seconds.seconds(Integer.parseInt(headerValue)));
+		try {
+			return new PositiveSeconds(Seconds.seconds(Integer.parseInt(headerValue)));
+		} catch (Exception e) {
+			throw new IllegalHeaderFieldValueException(headerValue, this, e);
+		}
 	}
-
 }
