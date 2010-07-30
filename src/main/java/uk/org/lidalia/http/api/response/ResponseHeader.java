@@ -9,7 +9,7 @@ import uk.org.lidalia.http.api.mutable.response.MutableResponseHeader;
 
 public interface ResponseHeader extends Header {
 
-	public ResponseCode getCode();
+	public Code getCode();
 	public Reason getReason();
 	
 	public HeaderFieldValue getAcceptRanges();

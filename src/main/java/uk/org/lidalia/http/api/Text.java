@@ -17,11 +17,16 @@ public class Text extends WrappedString {
 	private static final int SPACE = 32;
 	private static final int DEL = 127;
 
-	public Text(String text) throws CharacterCodingException {
+	public Text(String text) {
 		super(text);
 		CharsetEncoder encoder = CharSets.ISO_8859_1.newEncoder();
 		CharBuffer charBuffer = CharBuffer.wrap(text);
-		byte[] textAsBytes = encoder.encode(charBuffer).array();
+		byte[] textAsBytes;
+		try {
+			textAsBytes = encoder.encode(charBuffer).array();
+		} catch (CharacterCodingException e) {
+			throw new IllegalArgumentException("[" + text + "] is not valid Text - is not ISO-8859-1", e);
+		}
 		for (int i = 0; i < textAsBytes.length; i++) {
 			byte currentByte = textAsBytes[i];
 			byte nextByte = textAsBytes.length > i + 1 ? textAsBytes[i + 1] : DEL;

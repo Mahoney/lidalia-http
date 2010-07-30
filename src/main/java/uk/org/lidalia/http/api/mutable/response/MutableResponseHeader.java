@@ -4,8 +4,8 @@ import uk.org.lidalia.http.api.exception.IllegalHeaderFieldValueException;
 import uk.org.lidalia.http.api.headerfield.HeaderField;
 import uk.org.lidalia.http.api.mutable.MutableHeader;
 import uk.org.lidalia.http.api.mutable.MutableHeaderFields;
+import uk.org.lidalia.http.api.response.Code;
 import uk.org.lidalia.http.api.response.Reason;
-import uk.org.lidalia.http.api.response.ResponseCode;
 import uk.org.lidalia.http.api.response.ResponseHeader;
 
 public interface MutableResponseHeader extends ResponseHeader, MutableHeader {
@@ -13,7 +13,7 @@ public interface MutableResponseHeader extends ResponseHeader, MutableHeader {
 	@Override
 	public MutableHeaderFields getHeaderFields();
 
-	void setCode(ResponseCode code);
+	void setCode(Code code);
 
 	void setReason(Reason reason);
 

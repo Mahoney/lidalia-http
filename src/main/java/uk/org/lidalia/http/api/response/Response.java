@@ -15,7 +15,7 @@ public interface Response extends Message {
 	@Override
 	ResponseBody getBody();
 
-	ResponseCode getCode();
+	Code getCode();
 
 	Reason getReason();
 	

@@ -1,5 +1,7 @@
 package uk.org.lidalia;
 
+import java.util.concurrent.ConcurrentMap;
+
 public final class Utils {
 
 	public static <E> E valueOrDefault(E valueWhichMightBeNull, E defaultValue) {
@@ -20,5 +22,14 @@ public final class Utils {
 	
 	private Utils() {
 		
+	}
+
+	public static <K, V> V putIfAbsentReturningObjectInMap(ConcurrentMap<K, V> map, K key, V mayNotBeInMap) {
+		V alreadyInMap = map.putIfAbsent(key, mayNotBeInMap);
+		if (alreadyInMap != null) {
+			return alreadyInMap;
+		} else {
+			return mayNotBeInMap;
+		}
 	}
 }
