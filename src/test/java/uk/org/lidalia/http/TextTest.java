@@ -8,6 +8,8 @@ import java.util.concurrent.Callable;
 
 import org.junit.Test;
 
+import uk.org.lidalia.http.api.Text;
+
 public class TextTest {
 	
 	@Test

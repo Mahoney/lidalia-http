@@ -8,7 +8,8 @@ import java.util.concurrent.Callable;
 
 import org.junit.Test;
 
-import uk.org.lidalia.http.exception.IllegalTokenException;
+import uk.org.lidalia.http.api.Token;
+import uk.org.lidalia.http.api.exception.IllegalTokenException;
 
 
 public class TokenTest {

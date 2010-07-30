@@ -7,6 +7,8 @@ import java.util.concurrent.Callable;
 
 import org.junit.Test;
 
+import uk.org.lidalia.http.api.response.Reason;
+
 
 public class ReasonTest {
 
