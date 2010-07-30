@@ -1,4 +1,4 @@
-package uk.org.lidalia.http.headers;
+package uk.org.lidalia.http.headerfield;
 
 import uk.org.lidalia.http.Token;
 import uk.org.lidalia.http.exception.IllegalHeaderFieldValueException;

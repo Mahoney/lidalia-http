@@ -1,4 +1,4 @@
-package uk.org.lidalia.http;
+package uk.org.lidalia.http.headerfield;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
@@ -6,9 +6,6 @@ import org.apache.commons.lang.Validate;
 import uk.org.lidalia.Immutable;
 import uk.org.lidalia.http.exception.IllegalHeaderFieldNameException;
 import uk.org.lidalia.http.exception.IllegalHeaderFieldValueException;
-import uk.org.lidalia.http.headers.HeaderFieldName;
-import uk.org.lidalia.http.headers.HeaderFieldNameRegistry;
-import uk.org.lidalia.http.headers.HeaderFieldValue;
 
 public final class HeaderField implements Immutable {
 	

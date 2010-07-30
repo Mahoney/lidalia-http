@@ -5,6 +5,7 @@ import java.util.Collection;import java.util.Collections;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+
 public class ResponseCodeRegistry {
 	
 	private static final ConcurrentMap<Integer, ResponseCode> responseCodes = new ConcurrentHashMap<Integer, ResponseCode>();

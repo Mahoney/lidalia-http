@@ -1,13 +1,17 @@
 package uk.org.lidalia.http;
 
 import uk.org.lidalia.CanBeMadeImmutable;
+import uk.org.lidalia.http.immutable.ImmutableMessage;
 
 public interface Message extends CanBeMadeImmutable {
 
-	public abstract Header getHeader();
+	Header getHeader();
 
-	public abstract Body getBody();
-
-	public abstract HeaderFields getHeaderFields();
+	HeaderFields getHeaderFields();
+	
+	Body getBody();
+	
+	@Override
+	ImmutableMessage toImmutable();
 
 }

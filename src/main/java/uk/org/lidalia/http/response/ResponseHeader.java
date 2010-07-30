@@ -3,7 +3,7 @@ package uk.org.lidalia.http.response;
 import org.joda.time.Seconds;
 
 import uk.org.lidalia.http.Header;
-import uk.org.lidalia.http.headers.HeaderFieldValue;
+import uk.org.lidalia.http.headerfield.HeaderFieldValue;
 import uk.org.lidalia.http.immutable.response.ImmutableResponseHeader;
 import uk.org.lidalia.http.mutable.response.MutableResponseHeader;
 

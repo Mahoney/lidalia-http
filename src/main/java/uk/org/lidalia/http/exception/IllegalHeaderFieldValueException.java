@@ -1,6 +1,6 @@
 package uk.org.lidalia.http.exception;
 
-import uk.org.lidalia.http.headers.HeaderFieldName;
+import uk.org.lidalia.http.headerfield.HeaderFieldName;
 
 public class IllegalHeaderFieldValueException extends uk.org.lidalia.RuntimeException {
 	

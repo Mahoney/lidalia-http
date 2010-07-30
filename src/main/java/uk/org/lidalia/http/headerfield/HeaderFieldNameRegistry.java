@@ -1,4 +1,4 @@
-package uk.org.lidalia.http.headers;
+package uk.org.lidalia.http.headerfield;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -32,13 +32,5 @@ public class HeaderFieldNameRegistry {
 	public static void registerHeaderFieldName(HeaderFieldName newHeaderFieldName) {
 		Validate.notNull(newHeaderFieldName, "newHeaderFieldName is null");
 		headerFieldNames.putIfAbsent(newHeaderFieldName.toString().toLowerCase(), newHeaderFieldName);
-	}
-	
-	static {
-		try {
-			registerHeaderFieldName(new PositiveSecondsHeaderFieldName("Age"));
-		} catch (IllegalTokenException e) {
-			throw new IllegalStateException("It should not be possible to get an illegal token exception from any of the predefined header field names", e);
-		}
 	}
 }

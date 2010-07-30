@@ -1,4 +1,4 @@
-package uk.org.lidalia.http.headers;
+package uk.org.lidalia.http.headerfield;
 
 import uk.org.lidalia.Immutable;
 import uk.org.lidalia.WrappedValue;

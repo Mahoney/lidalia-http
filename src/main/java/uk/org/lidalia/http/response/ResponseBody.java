@@ -8,6 +8,7 @@ public interface ResponseBody extends Body {
 
 	MutableResponseBody toMutable();
 
+	@Override
 	ImmutableResponseBody toImmutable();
 
 }

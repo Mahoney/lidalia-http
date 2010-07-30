@@ -6,6 +6,7 @@ import org.apache.commons.lang.Validate;
 
 import uk.org.lidalia.http.Text;
 
+
 public final class Reason extends Text {
 
 	public Reason(String reason) throws CharacterCodingException {
