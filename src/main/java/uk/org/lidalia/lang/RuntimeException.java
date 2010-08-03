@@ -1,4 +1,4 @@
-package uk.org.lidalia;
+package uk.org.lidalia.lang;
 
 public class RuntimeException extends java.lang.RuntimeException {
 

@@ -1,6 +1,6 @@
 package uk.org.lidalia.http.api.exception;
 
-public class InvalidHeaderException extends uk.org.lidalia.RuntimeException {
+public class InvalidHeaderException extends uk.org.lidalia.lang.RuntimeException {
 	
 	private static final long serialVersionUID = 1L;
 

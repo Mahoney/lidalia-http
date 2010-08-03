@@ -2,8 +2,8 @@ package uk.org.lidalia.http.api;
 
 import java.util.regex.Pattern;
 
-import uk.org.lidalia.WrappedString;
 import uk.org.lidalia.http.api.exception.IllegalTokenException;
+import uk.org.lidalia.lang.WrappedString;
 
 public class Token extends WrappedString {
 	

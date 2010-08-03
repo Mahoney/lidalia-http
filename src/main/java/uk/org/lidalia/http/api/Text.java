@@ -4,8 +4,8 @@ import java.nio.CharBuffer;
 import java.nio.charset.CharacterCodingException;
 import java.nio.charset.CharsetEncoder;
 
-import uk.org.lidalia.CharSets;
-import uk.org.lidalia.WrappedString;
+import uk.org.lidalia.lang.CharSets;
+import uk.org.lidalia.lang.WrappedString;
 
 public class Text extends WrappedString {
 

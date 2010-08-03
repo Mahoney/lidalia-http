@@ -1,6 +1,6 @@
 package uk.org.lidalia.http.api.exception;
 
-public class InvalidResponseException extends uk.org.lidalia.RuntimeException {
+public class InvalidResponseException extends uk.org.lidalia.lang.RuntimeException {
 	
 	private static final long serialVersionUID = 1L;
 

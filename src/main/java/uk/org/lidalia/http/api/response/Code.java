@@ -1,6 +1,6 @@
 package uk.org.lidalia.http.api.response;
 
-import uk.org.lidalia.Immutable;
+import uk.org.lidalia.lang.Immutable;
 
 public interface Code extends Immutable {
 

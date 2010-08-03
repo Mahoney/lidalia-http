@@ -1,4 +1,4 @@
-package uk.org.lidalia;
+package uk.org.lidalia.lang;
 
 import java.nio.charset.Charset;
 

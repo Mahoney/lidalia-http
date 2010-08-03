@@ -2,7 +2,7 @@ package uk.org.lidalia.http.api.exception;
 
 import uk.org.lidalia.http.api.Token;
 
-public class IllegalTokenException extends uk.org.lidalia.RuntimeException {
+public class IllegalTokenException extends uk.org.lidalia.lang.RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 	

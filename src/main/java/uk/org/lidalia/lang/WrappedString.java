@@ -1,4 +1,4 @@
-package uk.org.lidalia;
+package uk.org.lidalia.lang;
 
 public abstract class WrappedString extends WrappedValue<String> implements Immutable {
 
