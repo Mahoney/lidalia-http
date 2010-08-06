@@ -28,10 +28,12 @@ public interface Collection<E> {
      * @param e element whose presence in this collection is to be tested
      * @return <tt>true</tt> if this collection contains the specified
      *         element
+     * @throws ClassCastException if the type of the specified element
+     *         is incompatible with this collection (optional)
      * @throws NullPointerException if the specified element is null and this
      *         collection does not permit null elements (optional)
      */
-    boolean contains(E e);
+    boolean contains(Object o);
     
     Iterator<E> iterator();
     
@@ -44,12 +46,15 @@ public interface Collection<E> {
      * @param  c collection to be checked for containment in this collection
      * @return <tt>true</tt> if this collection contains all of the elements
      *	       in the specified collection
+     * @throws ClassCastException if the types of one or more elements
+     *         in the specified collection are incompatible with this
+     *         collection (optional)
      * @throws NullPointerException if the specified collection contains one
      *         or more null elements and this collection does not permit null
      *         elements (optional), or if the specified collection is null
      * @see    #contains(Object)
      */
-    boolean containsAll(Collection<? extends E> c);
+    boolean containsAll(Collection<?> c);
 
     
     // Comparison and hashing

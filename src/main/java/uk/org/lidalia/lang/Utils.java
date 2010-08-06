@@ -32,4 +32,10 @@ public final class Utils {
 			return mayNotBeInMap;
 		}
 	}
+	
+	public static byte[] copy(byte[] original) {
+		byte[] newBytes = new byte[original.length];
+		System.arraycopy(original, 0, newBytes, 0, original.length);
+		return newBytes;
+	}
 }
