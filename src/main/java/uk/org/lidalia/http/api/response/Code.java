@@ -1,14 +1,68 @@
 package uk.org.lidalia.http.api.response;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+
+import org.apache.commons.lang.Validate;
+
+import uk.org.lidalia.http.api.response.Reason;
 import uk.org.lidalia.lang.Immutable;
+import uk.org.lidalia.lang.Utils;
 
-public interface Code extends Immutable {
+public final class Code implements Immutable {
+	
+	public static final Code OK = Code(200, "OK");
+	
+	private final Integer code;
+	private final Reason defaultReason;
 
-	int getCode();
+	private static final ConcurrentMap<Integer, Code> codes = new ConcurrentHashMap<Integer, Code>();
+	
+	private Code(int code) {
+		this(code, null);
+	}
+	
+	private Code(int code, Reason defaultReason) {
+		Validate.isTrue(code >= 100);
+		Validate.isTrue(code <= 999);
+		this.code = code;
+		this.defaultReason = defaultReason;
+	}
+	
+	public Integer toInteger() {
+		return code;
+	}
+	
+	@Override
+	public String toString() {
+		return Integer.toString(code);
+	}
 
-	Reason getDefaultReason();
+	public Reason getDefaultReason() {
+		return defaultReason;
+	}
+	
+	@Override
+	public Code toImmutable() {
+		return this;
+	}
 
-	Code toImmutable();
+	public static Collection<Code> values() {
+		return Collections.unmodifiableCollection(codes.values());
+	}
 
-	String toString();
+	public static Code Code(Integer code) {
+		Code result = codes.get(code);
+		if (result == null) {
+			result = Utils.putIfAbsentReturningObjectInMap(codes, code, new Code(code));
+		}
+		return result;
+	}
+
+	public static Code Code(Integer code, String defaultReason) {
+		return Utils.putIfAbsentReturningObjectInMap(codes, code, new Code(code, new Reason(defaultReason)));
+	}
+
 }

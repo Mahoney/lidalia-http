@@ -21,7 +21,7 @@ public final class Utils {
 	}
 	
 	private Utils() {
-		
+		// not instantiable
 	}
 
 	public static <K, V> V putIfAbsentReturningObjectInMap(ConcurrentMap<K, V> map, K key, V mayNotBeInMap) {

@@ -23,6 +23,6 @@ public class RuntimeException extends java.lang.RuntimeException {
 	@Override
 	public String toString() {
 		return Utils.throwableToString(this);
-	};
+	}
 
 }
