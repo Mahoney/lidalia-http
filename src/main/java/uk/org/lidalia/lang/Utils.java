@@ -12,10 +12,10 @@ public final class Utils {
 		}
 	}
 	
-	public static String throwableToString(Throwable throwable) {
-		StringBuffer stringValue = new StringBuffer(throwable.toString());
-		if (throwable.getCause() != null) {
-			stringValue.append("; caused by: ").append(throwable.getCause());
+	public static String throwableToString(String baseToString, Throwable cause) {
+		StringBuffer stringValue = new StringBuffer(baseToString);
+		if (cause != null) {
+			stringValue.append("; caused by: ").append(cause);
 		}
 		return stringValue.toString();
 	}

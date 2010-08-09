@@ -13,12 +13,12 @@ import uk.org.lidalia.lang.Utils;
 
 public final class Code implements Immutable {
 	
+	private static final ConcurrentMap<Integer, Code> codes = new ConcurrentHashMap<Integer, Code>();
+	
 	public static final Code OK = Code(200, "OK");
 	
 	private final Integer code;
-	private final Reason defaultReason;
-
-	private static final ConcurrentMap<Integer, Code> codes = new ConcurrentHashMap<Integer, Code>();
+	private final Reason defaultReason;	
 	
 	private Code(int code) {
 		this(code, null);

@@ -22,7 +22,7 @@ public class Exception extends java.lang.Exception {
 	
 	@Override
 	public String toString() {
-		return Utils.throwableToString(this);
+		return Utils.throwableToString(super.toString(), getCause());
 	}
 
 }
