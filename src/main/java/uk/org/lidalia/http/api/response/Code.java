@@ -1,5 +1,7 @@
 package uk.org.lidalia.http.api.response;
 
+import static uk.org.lidalia.http.api.response.Reason.Reason;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.concurrent.ConcurrentHashMap;
@@ -10,34 +12,25 @@ import org.apache.commons.lang.Validate;
 import uk.org.lidalia.http.api.response.Reason;
 import uk.org.lidalia.lang.Immutable;
 import uk.org.lidalia.lang.Utils;
+import uk.org.lidalia.lang.WrappedValue;
 
-public final class Code implements Immutable {
+public final class Code extends WrappedValue<Integer> implements Immutable {
 	
 	private static final ConcurrentMap<Integer, Code> codes = new ConcurrentHashMap<Integer, Code>();
 	
-	public static final Code OK = Code(200, "OK");
+	public static final Code OK = Code(200, Reason("OK"));
 	
-	private final Integer code;
 	private final Reason defaultReason;	
 	
-	private Code(int code) {
-		this(code, null);
-	}
-	
-	private Code(int code, Reason defaultReason) {
+	private Code(Integer code, Reason defaultReason) {
+		super(code);
 		Validate.isTrue(code >= 100);
 		Validate.isTrue(code <= 999);
-		this.code = code;
 		this.defaultReason = defaultReason;
 	}
 	
 	public Integer toInteger() {
-		return code;
-	}
-	
-	@Override
-	public String toString() {
-		return Integer.toString(code);
+		return wrappedValue;
 	}
 
 	public Reason getDefaultReason() {
@@ -54,15 +47,15 @@ public final class Code implements Immutable {
 	}
 
 	public static Code Code(Integer code) {
-		Code result = codes.get(code);
-		if (result == null) {
-			result = Utils.putIfAbsentReturningObjectInMap(codes, code, new Code(code));
-		}
-		return result;
+		return Code(code, null);
 	}
 
-	public static Code Code(Integer code, String defaultReason) {
-		return Utils.putIfAbsentReturningObjectInMap(codes, code, new Code(code, new Reason(defaultReason)));
+	public static Code Code(Integer code, Reason defaultReason) {
+		Code result = codes.get(code);
+		if (result == null) {
+			result = Utils.putIfAbsentReturningObjectInMap(codes, code, new Code(code, defaultReason));
+		}
+		return result;
 	}
 
 }

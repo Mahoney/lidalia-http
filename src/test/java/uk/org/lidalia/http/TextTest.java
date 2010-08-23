@@ -3,6 +3,8 @@ package uk.org.lidalia.http;
 import static org.junit.Assert.assertEquals;
 import static uk.org.lidalia.testutils.Assert.shouldThrow;
 
+import static uk.org.lidalia.http.api.Text.Text;
+
 import java.nio.charset.Charset;
 import java.util.concurrent.Callable;
 
@@ -19,30 +21,30 @@ public class TextTest {
 	}
 	
 	@Test
-	public void constructorAcceptsNormalText() throws Throwable {
+	public void constructorAcceptsNormalText() {
 		String string = "Hello World\t\t\t         99+\"'/\\^&*";
-		Text text = new Text(string);
+		Text text = Text(string);
 		assertEquals(string, text.toString());
 	}
 	
 	@Test
-	public void constructorAcceptsEmptyText() throws Throwable {
+	public void constructorAcceptsEmptyText() {
 		String string = "";
-		Text text = new Text(string);
+		Text text = Text(string);
 		assertEquals(string, text.toString());
 	}
 	
 	@Test
-	public void constructorAcceptsCRLFWithFollowingSpace() throws Throwable {
+	public void constructorAcceptsCRLFWithFollowingSpace() {
 		String string = "Hello World\r\n ";
-		Text text = new Text(string);
+		Text text = Text(string);
 		assertEquals(string, text.toString());
 	}
 	
 	@Test
-	public void constructorAcceptsCRLFWithFollowingHorizontalTab() throws Throwable {
+	public void constructorAcceptsCRLFWithFollowingHorizontalTab() {
 		String string = "Hello World\r\n\t";
-		Text text = new Text(string);
+		Text text = Text(string);
 		assertEquals(string, text.toString());
 	}
 	
@@ -63,7 +65,7 @@ public class TextTest {
 		IllegalArgumentException exception = shouldThrow(IllegalArgumentException.class, new Callable<Void>() {
 			@Override
 			public Void call() throws Exception {
-				new Text(string);
+				Text(string);
 				return null;
 			}
 		});

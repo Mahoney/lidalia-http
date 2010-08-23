@@ -2,13 +2,11 @@ package uk.org.lidalia.http.response;
 
 import static org.junit.Assert.*;
 import static uk.org.lidalia.testutils.Assert.shouldThrow;
+import static uk.org.lidalia.http.api.response.Reason.Reason;
 
 import java.util.concurrent.Callable;
 
 import org.junit.Test;
-
-import uk.org.lidalia.http.api.response.Reason;
-
 
 public class ReasonTest {
 
@@ -34,7 +32,7 @@ public class ReasonTest {
 		IllegalArgumentException exception = shouldThrow(IllegalArgumentException.class, new Callable<Void>() {
 			@Override
 			public Void call() throws Exception {
-				new Reason(string);
+				Reason(string);
 				return null;
 			}
 		});

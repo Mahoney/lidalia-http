@@ -17,7 +17,11 @@ public class Text extends WrappedString {
 	private static final int SPACE = 32;
 	private static final int DEL = 127;
 
-	public Text(String text) {
+	public static Text Text(String text) {
+		return new Text(text);
+	}
+	
+	protected Text(String text) {
 		super(text);
 		CharsetEncoder encoder = CharSets.ISO_8859_1.newEncoder();
 		CharBuffer charBuffer = CharBuffer.wrap(text);
