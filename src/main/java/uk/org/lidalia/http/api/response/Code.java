@@ -4,6 +4,8 @@ import static uk.org.lidalia.http.api.response.Reason.Reason;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -42,8 +44,8 @@ public final class Code extends WrappedValue<Integer> implements Immutable {
 		return this;
 	}
 
-	public static Collection<Code> values() {
-		return Collections.unmodifiableCollection(codes.values());
+	public static Set<Code> values() {
+		return Collections.unmodifiableSet(new HashSet<Code>(codes.values()));
 	}
 
 	public static Code Code(Integer code) {
