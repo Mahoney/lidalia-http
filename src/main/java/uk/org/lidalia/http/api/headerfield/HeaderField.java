@@ -8,6 +8,7 @@ public interface HeaderField extends Immutable {
 
 	HeaderFieldValue getValue();
 
+	@Override
 	HeaderField toImmutable();
 
 }

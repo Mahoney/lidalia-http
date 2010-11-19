@@ -1,8 +1,6 @@
 package uk.org.lidalia.http.api.headerfield;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.lang.ref.WeakReference;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -12,7 +10,7 @@ import uk.org.lidalia.lang.Utils;
 
 public class HeaderFieldName extends Token {
 	
-	private static final ConcurrentMap<String, HeaderFieldName> names = new ConcurrentHashMap<String, HeaderFieldName>();
+	private static final ConcurrentMap<String, WeakReference<HeaderFieldName>> names = new ConcurrentHashMap<String, WeakReference<HeaderFieldName>>();
 	
 	public static final HeaderFieldName	ACCEPT_RANGES		= HeaderFieldName("Accept-Ranges");
 	public static final HeaderFieldName AGE					= HeaderFieldName("Age");
@@ -28,15 +26,15 @@ public class HeaderFieldName extends Token {
 	private HeaderFieldName(String headerName) throws IllegalTokenException {
 		super(headerName);
 	}
-	
-	public static Set<HeaderFieldName> values() {
-		return Collections.unmodifiableSet(new HashSet<HeaderFieldName>(names.values()));
-	}
 
 	public static HeaderFieldName HeaderFieldName(String name) {
-		HeaderFieldName result = names.get(name);
-		if (result == null) {
-			result = Utils.putIfAbsentReturningObjectInMap(names, name, new HeaderFieldName(name));
+		WeakReference<HeaderFieldName> ref = names.get(name);
+		HeaderFieldName result = null;
+		if (ref != null) {
+			result = ref.get();
+			if (result == null) {
+				result = Utils.putIfAbsentReturningObjectInMap(names, name, new WeakReference<HeaderFieldName>(new HeaderFieldName(name))).get();
+			}
 		}
 		return result;
 	}
