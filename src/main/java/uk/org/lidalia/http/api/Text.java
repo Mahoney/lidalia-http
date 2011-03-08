@@ -4,7 +4,8 @@ import java.nio.CharBuffer;
 import java.nio.charset.CharacterCodingException;
 import java.nio.charset.CharsetEncoder;
 
-import uk.org.lidalia.lang.CharSets;
+import com.google.common.base.Charsets;
+
 import uk.org.lidalia.lang.WrappedString;
 
 public class Text extends WrappedString {
@@ -23,7 +24,7 @@ public class Text extends WrappedString {
 	
 	protected Text(String text) {
 		super(text);
-		CharsetEncoder encoder = CharSets.ISO_8859_1.newEncoder();
+		CharsetEncoder encoder = Charsets.ISO_8859_1.newEncoder();
 		CharBuffer charBuffer = CharBuffer.wrap(text);
 		byte[] textAsBytes;
 		try {

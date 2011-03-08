@@ -1,7 +1,7 @@
 package uk.org.lidalia.http;
 
 import static org.junit.Assert.assertEquals;
-import static uk.org.lidalia.testutils.Assert.shouldThrow;
+import static uk.org.lidalia.test.Assert.shouldThrow;
 
 import java.nio.charset.Charset;
 import java.util.concurrent.Callable;

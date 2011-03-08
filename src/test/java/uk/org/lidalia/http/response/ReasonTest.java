@@ -1,7 +1,7 @@
 package uk.org.lidalia.http.response;
 
 import static org.junit.Assert.*;
-import static uk.org.lidalia.testutils.Assert.shouldThrow;
+import static uk.org.lidalia.test.Assert.shouldThrow;
 import static uk.org.lidalia.http.api.response.Reason.Reason;
 
 import java.util.concurrent.Callable;
