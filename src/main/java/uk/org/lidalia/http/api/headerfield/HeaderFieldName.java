@@ -6,7 +6,7 @@ import java.util.concurrent.ConcurrentMap;
 
 import uk.org.lidalia.http.api.Token;
 import uk.org.lidalia.http.api.exception.IllegalTokenException;
-import uk.org.lidalia.lang.Utils;
+import uk.org.lidalia.lang.MapUtils;
 
 public class HeaderFieldName extends Token {
 	
@@ -33,7 +33,7 @@ public class HeaderFieldName extends Token {
 		if (ref != null) {
 			result = ref.get();
 			if (result == null) {
-				result = Utils.putIfAbsentReturningObjectInMap(names, name, new WeakReference<HeaderFieldName>(new HeaderFieldName(name))).get();
+				result = MapUtils.putIfAbsentReturningValue(names, name, new WeakReference<HeaderFieldName>(new HeaderFieldName(name))).get();
 			}
 		}
 		return result;

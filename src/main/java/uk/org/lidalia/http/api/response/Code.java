@@ -13,6 +13,7 @@ import org.apache.commons.lang.Validate;
 
 import uk.org.lidalia.http.api.response.Reason;
 import uk.org.lidalia.lang.Immutable;
+import uk.org.lidalia.lang.MapUtils;
 import uk.org.lidalia.lang.Utils;
 import uk.org.lidalia.lang.WrappedValue;
 
@@ -55,7 +56,7 @@ public final class Code extends WrappedValue<Integer> implements Immutable {
 	public static Code Code(Integer code, Reason defaultReason) {
 		Code result = codes.get(code);
 		if (result == null) {
-			result = Utils.putIfAbsentReturningObjectInMap(codes, code, new Code(code, defaultReason));
+			result = MapUtils.putIfAbsentReturningValue(codes, code, new Code(code, defaultReason));
 		}
 		return result;
 	}
