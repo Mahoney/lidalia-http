@@ -6,11 +6,12 @@ import java.util.concurrent.ConcurrentMap;
 
 import uk.org.lidalia.http.api.Token;
 import uk.org.lidalia.http.api.exception.IllegalTokenException;
-import uk.org.lidalia.lang.MapUtils;
+import uk.org.lidalia.lang.Maps;
+import uk.org.lidalia.net.Port;
 
 public class HeaderFieldName extends Token {
 	
-	private static final ConcurrentMap<String, WeakReference<HeaderFieldName>> names = new ConcurrentHashMap<String, WeakReference<HeaderFieldName>>();
+	private static final ConcurrentMap<String, HeaderFieldName> names = new ConcurrentHashMap<String, HeaderFieldName>();
 	
 	public static final HeaderFieldName	ACCEPT_RANGES		= HeaderFieldName("Accept-Ranges");
 	public static final HeaderFieldName AGE					= HeaderFieldName("Age");
@@ -22,20 +23,21 @@ public class HeaderFieldName extends Token {
 	public static final HeaderFieldName	VARY				= HeaderFieldName("Vary");
 	public static final HeaderFieldName	WWW_AUTHENTICATE	= HeaderFieldName("WWW-Authenticate");
 	public static final HeaderFieldName	SET_COOKIE			= HeaderFieldName("Set-Cookie");
-	
-	private HeaderFieldName(String headerName) throws IllegalTokenException {
-		super(headerName);
+
+	public static HeaderFieldName register(String name) {
+		return Maps.putIfAbsentReturningValue(names, name, new HeaderFieldName(name));
 	}
 
 	public static HeaderFieldName HeaderFieldName(String name) {
-		WeakReference<HeaderFieldName> ref = names.get(name);
-		HeaderFieldName result = null;
-		if (ref != null) {
-			result = ref.get();
-			if (result == null) {
-				result = MapUtils.putIfAbsentReturningValue(names, name, new WeakReference<HeaderFieldName>(new HeaderFieldName(name))).get();
-			}
+		HeaderFieldName known = names.get(name);
+		if (known == null) {
+			return new HeaderFieldName(name);
+		} else {
+			return known;
 		}
-		return result;
+	}
+
+	private HeaderFieldName(String headerName) throws IllegalTokenException {
+		super(headerName);
 	}
 }

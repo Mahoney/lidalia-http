@@ -1,6 +1,8 @@
 package uk.org.lidalia.http.api.exception;
 
-public class IllegalHeaderFieldNameException extends uk.org.lidalia.lang.RichRuntimeException {
+import uk.org.lidalia.lang.RichRuntimeException;
+
+public class IllegalHeaderFieldNameException extends RichRuntimeException {
 	
 	private static final long serialVersionUID = 1L;
 

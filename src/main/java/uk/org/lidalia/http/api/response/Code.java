@@ -2,7 +2,6 @@ package uk.org.lidalia.http.api.response;
 
 import static uk.org.lidalia.http.api.response.Reason.Reason;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -13,8 +12,7 @@ import org.apache.commons.lang.Validate;
 
 import uk.org.lidalia.http.api.response.Reason;
 import uk.org.lidalia.lang.Immutable;
-import uk.org.lidalia.lang.MapUtils;
-import uk.org.lidalia.lang.Utils;
+import uk.org.lidalia.lang.Maps;
 import uk.org.lidalia.lang.WrappedValue;
 
 public final class Code extends WrappedValue<Integer> implements Immutable {
@@ -56,7 +54,7 @@ public final class Code extends WrappedValue<Integer> implements Immutable {
 	public static Code Code(Integer code, Reason defaultReason) {
 		Code result = codes.get(code);
 		if (result == null) {
-			result = MapUtils.putIfAbsentReturningValue(codes, code, new Code(code, defaultReason));
+			result = Maps.putIfAbsentReturningValue(codes, code, new Code(code, defaultReason));
 		}
 		return result;
 	}
