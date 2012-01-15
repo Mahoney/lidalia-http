@@ -1,13 +1,11 @@
 package uk.org.lidalia.http.api.headerfield;
 
-import java.lang.ref.WeakReference;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 import uk.org.lidalia.http.api.Token;
 import uk.org.lidalia.http.api.exception.IllegalTokenException;
 import uk.org.lidalia.lang.Maps;
-import uk.org.lidalia.net.Port;
 
 public class HeaderFieldName extends Token {
 	
