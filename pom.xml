@@ -1,28 +1,40 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
     <groupId>uk.org.lidalia</groupId>
-    <artifactId>java-module</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>lidalia-jvm-library</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <relativePath>../lidalia-jvm-library</relativePath>
   </parent>
   <groupId>uk.org.lidalia.http</groupId>
-	<artifactId>lidalia-http</artifactId>
+  <artifactId>lidalia-http</artifactId>
   <version>1.0.0-SNAPSHOT</version>
-	<repositories>
-		<repository>
-			<id>powermock-repo</id>
-			<url>http://powermock.googlecode.com/svn/repo/</url>
-		</repository>
-	</repositories>
-	<dependencies>
-		<dependency>
-			<groupId>uk.org.lidalia</groupId>
-			<artifactId>lidalia-net</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>joda-time</groupId>
-			<artifactId>joda-time</artifactId>
-		</dependency>
-	</dependencies>
+  <dependencies>
+    <dependency>
+      <groupId>uk.org.lidalia</groupId>
+      <artifactId>lidalia-net</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>joda-time</groupId>
+      <artifactId>joda-time</artifactId>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <compilerId>eclipse</compilerId>
+        </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>org.codehaus.plexus</groupId>
+            <artifactId>plexus-compiler-eclipse</artifactId>
+            <version>${plexus-compiler-eclipse.version}</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+    </plugins>
+  </build>
 </project>
