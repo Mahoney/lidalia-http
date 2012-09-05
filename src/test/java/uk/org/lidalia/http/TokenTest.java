@@ -1,7 +1,7 @@
 package uk.org.lidalia.http;
 
 import static org.junit.Assert.assertEquals;
-import static uk.org.lidalia.test.Assert.shouldThrow;
+import static uk.org.lidalia.test.ShouldThrow.shouldThrow;
 
 import java.nio.charset.Charset;
 import java.util.concurrent.Callable;
@@ -13,7 +13,7 @@ import uk.org.lidalia.http.api.exception.IllegalTokenException;
 
 
 public class TokenTest {
-	
+
 	@Test
 	public void tokenCannotHaveNonUsAsciiCharacters() throws Throwable {
 		for (byte i = -128; i < 0; i++) {
@@ -21,7 +21,7 @@ public class TokenTest {
 			assertExpectedIllegalArgumentExceptionThrown(constructorArgument);
 		}
 	}
-	
+
 	@Test
 	public void tokenCannotHaveControlCharacters() throws Throwable {
 		for (byte i = 0; i <= 31; i++) {
@@ -36,14 +36,14 @@ public class TokenTest {
 	public void tokenCannotBeEmpty() throws Throwable {
 		assertExpectedIllegalArgumentExceptionThrown("");
 	}
-	
+
 	private static final byte[] SEPARATORS = {
 		'(', ')', '<', '>',  '@',
 		',', ';', ':', '\\', '"',
 		'/', '[', ']', '?',  '=',
 		'{', '}', ' '
 		};
-	
+
 	@Test
 	public void tokenCannotHaveSeparators() throws Throwable {
 		for (int i = 0; i < SEPARATORS.length; i++) {
@@ -51,14 +51,14 @@ public class TokenTest {
 			assertExpectedIllegalArgumentExceptionThrown(constructorArgument);
 		}
 	}
-	
+
 	@Test
 	public void tokenCanBeAnyOtherUsAsciiCharacters() throws Throwable {
 		String constructorArgument = "!#$%&'*+-.0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ^_`abcdefghijklmnopqrstuvwxyz|~";
 		Token token = new Token(constructorArgument);
 		assertEquals(constructorArgument, token.toString());
 	}
-	
+
 	@Test
 	public void tokenCanBeSingleCharacter() throws Throwable {
 		String constructorArgument = "a";
@@ -68,12 +68,12 @@ public class TokenTest {
 
 	private void assertExpectedIllegalArgumentExceptionThrown(final String constructorArgument) throws Throwable {
 		IllegalTokenException exception = shouldThrow(IllegalTokenException.class, "Expected IllegalTokenException using constructor argument [" + constructorArgument + "]", new Callable<Void>() {
-			@Override
-			public Void call() throws Exception {
-				new Token(constructorArgument);
-				return null;
-			}
-		});
+            @Override
+            public Void call() throws Exception {
+                new Token(constructorArgument);
+                return null;
+            }
+        });
 		assertEquals("[" + constructorArgument + "] is not a valid Token - must match [a-zA-Z0-9!#\\$%&'\\*\\+\\-\\.\\^_`\\|~]+", exception.getMessage());
 	}
 }
