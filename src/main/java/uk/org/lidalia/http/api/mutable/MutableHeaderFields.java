@@ -6,12 +6,12 @@ import uk.org.lidalia.http.api.headerfield.HeaderField;
 
 public interface MutableHeaderFields extends HeaderFields {
 
-	boolean remove(HeaderField header);
+    boolean remove(HeaderField header);
 
-	void clear();
+    void clear();
 
-	void add(HeaderField header) throws IllegalHeaderFieldValueException;
+    void add(HeaderField header) throws IllegalHeaderFieldValueException;
 
-	void set(HeaderField header);
+    void set(HeaderField header);
 
 }

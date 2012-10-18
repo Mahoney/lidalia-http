@@ -9,23 +9,23 @@ import uk.org.lidalia.http.api.mutable.response.MutableResponse;
 
 public interface Response extends Message {
 
-	@Override
-	ResponseHeader getHeader();
-	
-	@Override
-	ResponseBody getBody();
+    @Override
+    ResponseHeader getHeader();
 
-	Code getCode();
+    @Override
+    ResponseBody getBody();
 
-	Reason getReason();
-	
-	HeaderFieldValue getAcceptRanges();
-	Seconds getAge();
-	HeaderFieldValue getEtag();
-	HeaderFieldValue getLocation();
-	
-	MutableResponse toMutable();
-	
-	@Override
-	ImmutableResponse toImmutable();
+    Code getCode();
+
+    Reason getReason();
+
+    HeaderFieldValue getAcceptRanges();
+    Seconds getAge();
+    HeaderFieldValue getEtag();
+    HeaderFieldValue getLocation();
+
+    MutableResponse toMutable();
+
+    @Override
+    ImmutableResponse toImmutable();
 }

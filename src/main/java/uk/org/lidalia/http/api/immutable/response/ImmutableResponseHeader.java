@@ -7,6 +7,6 @@ import uk.org.lidalia.http.api.response.ResponseHeader;
 
 public interface ImmutableResponseHeader extends ResponseHeader, ImmutableHeader {
 
-	@Override
-	public ImmutableHeaderFields getHeaderFields();
+    @Override
+    public ImmutableHeaderFields getHeaderFields();
 }

@@ -10,16 +10,16 @@ import uk.org.lidalia.http.api.response.ResponseHeader;
 
 public interface MutableResponseHeader extends ResponseHeader, MutableHeader {
 
-	@Override
-	public MutableHeaderFields getHeaderFields();
+    @Override
+    public MutableHeaderFields getHeaderFields();
 
-	void setCode(Code code);
+    void setCode(Code code);
 
-	void setReason(Reason reason);
+    void setReason(Reason reason);
 
-	void setHeaderField(HeaderField header);
+    void setHeaderField(HeaderField header);
 
-	void addHeaderField(HeaderField header) throws IllegalHeaderFieldValueException;
+    void addHeaderField(HeaderField header) throws IllegalHeaderFieldValueException;
 
-	boolean removeHeaderField(HeaderField header);
+    boolean removeHeaderField(HeaderField header);
 }

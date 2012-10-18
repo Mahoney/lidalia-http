@@ -5,13 +5,13 @@ import uk.org.lidalia.lang.CanBeMadeImmutable;
 
 public interface Message extends CanBeMadeImmutable {
 
-	Header getHeader();
+    Header getHeader();
 
-	HeaderFields getHeaderFields();
-	
-	Body getBody();
-	
-	@Override
-	ImmutableMessage toImmutable();
+    HeaderFields getHeaderFields();
+
+    Body getBody();
+
+    @Override
+    ImmutableMessage toImmutable();
 
 }

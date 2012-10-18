@@ -5,5 +5,5 @@ import uk.org.lidalia.lang.Immutable;
 
 public interface HeaderFieldValue extends Immutable {
 
-	Text toText();
+    Text toText();
 }

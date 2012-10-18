@@ -4,11 +4,11 @@ import uk.org.lidalia.lang.Immutable;
 
 public interface HeaderField extends Immutable {
 
-	HeaderFieldName getName();
+    HeaderFieldName getName();
 
-	HeaderFieldValue getValue();
+    HeaderFieldValue getValue();
 
-	@Override
-	HeaderField toImmutable();
+    @Override
+    HeaderField toImmutable();
 
 }

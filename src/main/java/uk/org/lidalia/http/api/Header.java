@@ -5,9 +5,9 @@ import uk.org.lidalia.lang.CanBeMadeImmutable;
 
 public interface Header extends CanBeMadeImmutable {
 
-	HeaderFields getHeaderFields();
-	
-	@Override
-	ImmutableHeader toImmutable();
+    HeaderFields getHeaderFields();
+
+    @Override
+    ImmutableHeader toImmutable();
 
 }

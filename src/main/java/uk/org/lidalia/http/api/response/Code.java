@@ -17,46 +17,46 @@ import uk.org.lidalia.lang.WrappedValue;
 
 public final class Code extends WrappedValue<Integer> implements Immutable {
 
-	private static final ConcurrentMap<Integer, Code> codes = new ConcurrentHashMap<Integer, Code>();
+    private static final ConcurrentMap<Integer, Code> codes = new ConcurrentHashMap<Integer, Code>();
 
-	public static final Code OK = Code(200, Reason("OK"));
+    public static final Code OK = Code(200, Reason("OK"));
 
-	private final Reason defaultReason;
+    private final Reason defaultReason;
 
-	private Code(Integer code, Reason defaultReason) {
-		super(code);
-		Validate.isTrue(code >= 100);
-		Validate.isTrue(code <= 999);
-		this.defaultReason = defaultReason;
-	}
+    private Code(Integer code, Reason defaultReason) {
+        super(code);
+        Validate.isTrue(code >= 100);
+        Validate.isTrue(code <= 999);
+        this.defaultReason = defaultReason;
+    }
 
-	public Integer toInteger() {
-		return getWrappedValue();
-	}
+    public Integer toInteger() {
+        return getWrappedValue();
+    }
 
-	public Reason getDefaultReason() {
-		return defaultReason;
-	}
+    public Reason getDefaultReason() {
+        return defaultReason;
+    }
 
-	@Override
-	public Code toImmutable() {
-		return this;
-	}
+    @Override
+    public Code toImmutable() {
+        return this;
+    }
 
-	public static Set<Code> values() {
-		return Collections.unmodifiableSet(new HashSet<Code>(codes.values()));
-	}
+    public static Set<Code> values() {
+        return Collections.unmodifiableSet(new HashSet<Code>(codes.values()));
+    }
 
-	public static Code Code(Integer code) {
-		return Code(code, null);
-	}
+    public static Code Code(Integer code) {
+        return Code(code, null);
+    }
 
-	public static Code Code(Integer code, Reason defaultReason) {
-		Code result = codes.get(code);
-		if (result == null) {
-			result = Maps.putIfAbsentReturningValue(codes, code, new Code(code, defaultReason));
-		}
-		return result;
-	}
+    public static Code Code(Integer code, Reason defaultReason) {
+        Code result = codes.get(code);
+        if (result == null) {
+            result = Maps.putIfAbsentReturningValue(codes, code, new Code(code, defaultReason));
+        }
+        return result;
+    }
 
 }

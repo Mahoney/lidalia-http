@@ -11,18 +11,18 @@ import uk.org.lidalia.lang.CanBeMadeImmutable;
 
 public interface HeaderFields extends Iterable<HeaderField>, CanBeMadeImmutable {
 
-	HeaderFieldValue get(HeaderFieldName name);
+    HeaderFieldValue get(HeaderFieldName name);
 
-	@Override
-	Iterator<HeaderField> iterator();
-	
-	int size();
-	
-	boolean isEmpty();
+    @Override
+    Iterator<HeaderField> iterator();
 
-	@Override
-	ImmutableHeaderFields toImmutable();
+    int size();
 
-	MutableHeaderFields toMutable();
+    boolean isEmpty();
+
+    @Override
+    ImmutableHeaderFields toImmutable();
+
+    MutableHeaderFields toMutable();
 
 }

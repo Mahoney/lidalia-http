@@ -9,15 +9,15 @@ import uk.org.lidalia.http.api.mutable.response.MutableResponseHeader;
 
 public interface ResponseHeader extends Header {
 
-	public Code getCode();
-	public Reason getReason();
-	
-	public HeaderFieldValue getAcceptRanges();
-	public Seconds getAge();
-	public HeaderFieldValue getEtag();
-	public HeaderFieldValue getLocation();
-	public MutableResponseHeader toMutable();
-	
-	@Override
-	public ImmutableResponseHeader toImmutable();
+    public Code getCode();
+    public Reason getReason();
+
+    public HeaderFieldValue getAcceptRanges();
+    public Seconds getAge();
+    public HeaderFieldValue getEtag();
+    public HeaderFieldValue getLocation();
+    public MutableResponseHeader toMutable();
+
+    @Override
+    public ImmutableResponseHeader toImmutable();
 }

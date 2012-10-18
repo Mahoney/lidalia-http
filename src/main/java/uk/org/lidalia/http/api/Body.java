@@ -7,10 +7,10 @@ import uk.org.lidalia.lang.CanBeMadeImmutable;
 
 public interface Body extends CanBeMadeImmutable {
 
-	@Override
-	ImmutableBody toImmutable();
-	
-	InputStream getInputStream();
-	
-	byte[] getBytes();
+    @Override
+    ImmutableBody toImmutable();
+
+    InputStream getInputStream();
+
+    byte[] getBytes();
 }

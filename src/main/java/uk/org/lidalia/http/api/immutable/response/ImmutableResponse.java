@@ -5,11 +5,11 @@ import uk.org.lidalia.http.api.response.Response;
 
 
 public interface ImmutableResponse extends Response, ImmutableMessage {
-	
-	@Override
-	ImmutableResponseHeader getHeader();
-	
-	@Override
-	ImmutableResponseBody getBody();
-	
+
+    @Override
+    ImmutableResponseHeader getHeader();
+
+    @Override
+    ImmutableResponseBody getBody();
+
 }

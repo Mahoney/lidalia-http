@@ -6,9 +6,9 @@ import uk.org.lidalia.http.api.mutable.response.MutableResponseBody;
 
 public interface ResponseBody extends Body {
 
-	MutableResponseBody toMutable();
+    MutableResponseBody toMutable();
 
-	@Override
-	ImmutableResponseBody toImmutable();
+    @Override
+    ImmutableResponseBody toImmutable();
 
 }
