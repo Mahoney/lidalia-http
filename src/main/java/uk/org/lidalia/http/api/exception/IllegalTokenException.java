@@ -6,9 +6,9 @@ import uk.org.lidalia.lang.RichRuntimeException;
 public class IllegalTokenException extends RichRuntimeException {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private final String tokenString;
-	
+
 	public IllegalTokenException(String tokenString) {
 		this(tokenString, null);
 	}
@@ -21,5 +21,5 @@ public class IllegalTokenException extends RichRuntimeException {
 	public String getTokenString() {
 		return tokenString;
 	}
-	
+
 }

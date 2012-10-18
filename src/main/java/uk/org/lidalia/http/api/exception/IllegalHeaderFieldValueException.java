@@ -4,12 +4,12 @@ import uk.org.lidalia.http.api.headerfield.HeaderFieldName;
 import uk.org.lidalia.lang.RichRuntimeException;
 
 public class IllegalHeaderFieldValueException extends RichRuntimeException {
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	private final String headerFieldValue;
 	private final HeaderFieldName headerFieldName;
-	
+
 	public IllegalHeaderFieldValueException(String headerFieldValue, HeaderFieldName headerFieldName) {
 		this(headerFieldValue, headerFieldName, null);
 	}
@@ -19,7 +19,7 @@ public class IllegalHeaderFieldValueException extends RichRuntimeException {
 		this.headerFieldValue = headerFieldValue;
 		this.headerFieldName = headerFieldName;
 	}
-	
+
 	public String getHeaderFieldValue() {
 		return headerFieldValue;
 	}

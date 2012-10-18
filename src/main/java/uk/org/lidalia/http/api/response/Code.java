@@ -16,28 +16,28 @@ import uk.org.lidalia.lang.Maps;
 import uk.org.lidalia.lang.WrappedValue;
 
 public final class Code extends WrappedValue<Integer> implements Immutable {
-	
+
 	private static final ConcurrentMap<Integer, Code> codes = new ConcurrentHashMap<Integer, Code>();
-	
+
 	public static final Code OK = Code(200, Reason("OK"));
-	
-	private final Reason defaultReason;	
-	
+
+	private final Reason defaultReason;
+
 	private Code(Integer code, Reason defaultReason) {
 		super(code);
 		Validate.isTrue(code >= 100);
 		Validate.isTrue(code <= 999);
 		this.defaultReason = defaultReason;
 	}
-	
+
 	public Integer toInteger() {
-		return wrappedValue;
+		return getWrappedValue();
 	}
 
 	public Reason getDefaultReason() {
 		return defaultReason;
 	}
-	
+
 	@Override
 	public Code toImmutable() {
 		return this;
