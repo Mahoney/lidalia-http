@@ -5,7 +5,8 @@ import java.util.concurrent.ConcurrentMap;
 
 import uk.org.lidalia.http.api.Token;
 import uk.org.lidalia.http.api.exception.IllegalTokenException;
-import uk.org.lidalia.lang.Maps;
+
+import static uk.org.lidalia.lang.RichOptional.fromNullable;
 
 public class HeaderFieldName extends Token {
 
@@ -23,7 +24,8 @@ public class HeaderFieldName extends Token {
     public static final HeaderFieldName    SET_COOKIE            = HeaderFieldName("Set-Cookie");
 
     public static HeaderFieldName register(String name) {
-        return Maps.putIfAbsentReturningValue(names, name, new HeaderFieldName(name));
+        final HeaderFieldName value = new HeaderFieldName(name);
+        return fromNullable(names.putIfAbsent(name, value)).or(value);
     }
 
     public static HeaderFieldName HeaderFieldName(String name) {
