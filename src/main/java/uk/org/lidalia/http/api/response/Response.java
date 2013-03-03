@@ -7,13 +7,10 @@ import uk.org.lidalia.http.api.headerfield.HeaderFieldValue;
 import uk.org.lidalia.http.api.immutable.response.ImmutableResponse;
 import uk.org.lidalia.http.api.mutable.response.MutableResponse;
 
-public interface Response extends Message {
+public interface Response extends Message<ImmutableResponse, MutableResponse> {
 
     @Override
     ResponseHeader getHeader();
-
-    @Override
-    ResponseBody getBody();
 
     Code getCode();
 
@@ -23,9 +20,4 @@ public interface Response extends Message {
     Seconds getAge();
     HeaderFieldValue getEtag();
     HeaderFieldValue getLocation();
-
-    MutableResponse toMutable();
-
-    @Override
-    ImmutableResponse toImmutable();
 }

@@ -7,7 +7,7 @@ import uk.org.lidalia.http.api.headerfield.HeaderFieldValue;
 import uk.org.lidalia.http.api.immutable.response.ImmutableResponseHeader;
 import uk.org.lidalia.http.api.mutable.response.MutableResponseHeader;
 
-public interface ResponseHeader extends Header {
+public interface ResponseHeader extends Header<ImmutableResponseHeader, MutableResponseHeader> {
 
     public Code getCode();
     public Reason getReason();
@@ -16,8 +16,4 @@ public interface ResponseHeader extends Header {
     public Seconds getAge();
     public HeaderFieldValue getEtag();
     public HeaderFieldValue getLocation();
-    public MutableResponseHeader toMutable();
-
-    @Override
-    public ImmutableResponseHeader toImmutable();
 }

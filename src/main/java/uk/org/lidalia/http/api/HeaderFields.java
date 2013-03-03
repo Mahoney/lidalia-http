@@ -8,8 +8,9 @@ import uk.org.lidalia.http.api.headerfield.HeaderField;
 import uk.org.lidalia.http.api.immutable.ImmutableHeaderFields;
 import uk.org.lidalia.http.api.mutable.MutableHeaderFields;
 import uk.org.lidalia.lang.CanBeMadeImmutable;
+import uk.org.lidalia.lang.CanBeMadeMutable;
 
-public interface HeaderFields extends Iterable<HeaderField>, CanBeMadeImmutable {
+public interface HeaderFields extends Iterable<HeaderField>, CanBeMadeImmutable<ImmutableHeaderFields>, CanBeMadeMutable<MutableHeaderFields> {
 
     HeaderFieldValue get(HeaderFieldName name);
 
@@ -19,10 +20,4 @@ public interface HeaderFields extends Iterable<HeaderField>, CanBeMadeImmutable 
     int size();
 
     boolean isEmpty();
-
-    @Override
-    ImmutableHeaderFields toImmutable();
-
-    MutableHeaderFields toMutable();
-
 }

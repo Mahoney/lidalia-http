@@ -1,8 +1,11 @@
 package uk.org.lidalia.http.response;
 
-import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 import static uk.org.lidalia.http.api.response.Reason.Reason;
-import static uk.org.lidalia.test.ShouldThrow.*;
+import static uk.org.lidalia.test.ShouldThrow.shouldThrow;
 
 import java.util.concurrent.Callable;
 
@@ -11,7 +14,7 @@ import org.junit.Test;
 public class ReasonTest {
 
     @Test
-    public void stringConstructorDoesNotAllowCROrLF() throws Throwable {
+    public void stringConstructorDoesNotAllowCROrLF() {
         assertExceptionThrown("glah\r\n blah");
     }
 
@@ -28,7 +31,7 @@ public class ReasonTest {
     }
 
 
-    private void assertExceptionThrown(final String string) throws Throwable {
+    private void assertExceptionThrown(final String string) {
         IllegalArgumentException exception = shouldThrow(IllegalArgumentException.class, new Callable<Void>() {
             @Override
             public Void call() throws Exception {
@@ -36,6 +39,6 @@ public class ReasonTest {
                 return null;
             }
         });
-        assertEquals("[" + string + "] contains a CR or LF character", exception.getMessage());
+        assertThat(exception.getMessage(), is("[" + string + "] contains a CR or LF character"));
     }
 }

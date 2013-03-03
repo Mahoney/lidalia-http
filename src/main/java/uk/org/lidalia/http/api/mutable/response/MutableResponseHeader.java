@@ -2,13 +2,14 @@ package uk.org.lidalia.http.api.mutable.response;
 
 import uk.org.lidalia.http.api.exception.IllegalHeaderFieldValueException;
 import uk.org.lidalia.http.api.headerfield.HeaderField;
+import uk.org.lidalia.http.api.immutable.response.ImmutableResponseHeader;
 import uk.org.lidalia.http.api.mutable.MutableHeader;
 import uk.org.lidalia.http.api.mutable.MutableHeaderFields;
 import uk.org.lidalia.http.api.response.Code;
 import uk.org.lidalia.http.api.response.Reason;
 import uk.org.lidalia.http.api.response.ResponseHeader;
 
-public interface MutableResponseHeader extends ResponseHeader, MutableHeader {
+public interface MutableResponseHeader extends ResponseHeader, MutableHeader<ImmutableResponseHeader, MutableResponseHeader> {
 
     @Override
     public MutableHeaderFields getHeaderFields();

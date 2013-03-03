@@ -8,7 +8,7 @@ import com.google.common.base.Charsets;
 
 import uk.org.lidalia.lang.WrappedString;
 
-public class Text extends WrappedString {
+public class Text<T extends Text<T>> extends WrappedString<T> {
 
     private static final int NULL = 0;
     private static final int HORIZONTAL_TAB = 9;

@@ -6,22 +6,22 @@ import java.util.concurrent.ConcurrentMap;
 import uk.org.lidalia.http.api.Token;
 import uk.org.lidalia.http.api.exception.IllegalTokenException;
 
-import static uk.org.lidalia.lang.RichOptional.fromNullable;
+import static com.google.common.base.Optional.fromNullable;
 
-public class HeaderFieldName extends Token {
+public class HeaderFieldName extends Token<HeaderFieldName> {
 
     private static final ConcurrentMap<String, HeaderFieldName> names = new ConcurrentHashMap<String, HeaderFieldName>();
 
-    public static final HeaderFieldName    ACCEPT_RANGES        = HeaderFieldName("Accept-Ranges");
-    public static final HeaderFieldName AGE                    = HeaderFieldName("Age");
-    public static final HeaderFieldName    ETAG                = HeaderFieldName("Etag");
-    public static final HeaderFieldName    LOCATION            = HeaderFieldName("Location");
-    public static final HeaderFieldName    PROXY_AUTHENTICATE    = HeaderFieldName("Proxy-Authenticate");
-    public static final HeaderFieldName    RETRY_AFTER            = HeaderFieldName("Retry-After");
-    public static final HeaderFieldName    SERVER                = HeaderFieldName("Server");
-    public static final HeaderFieldName    VARY                = HeaderFieldName("Vary");
-    public static final HeaderFieldName    WWW_AUTHENTICATE    = HeaderFieldName("WWW-Authenticate");
-    public static final HeaderFieldName    SET_COOKIE            = HeaderFieldName("Set-Cookie");
+    public static final HeaderFieldName ACCEPT_RANGES      = HeaderFieldName("Accept-Ranges");
+    public static final HeaderFieldName AGE                = HeaderFieldName("Age");
+    public static final HeaderFieldName ETAG               = HeaderFieldName("Etag");
+    public static final HeaderFieldName LOCATION           = HeaderFieldName("Location");
+    public static final HeaderFieldName PROXY_AUTHENTICATE = HeaderFieldName("Proxy-Authenticate");
+    public static final HeaderFieldName RETRY_AFTER        = HeaderFieldName("Retry-After");
+    public static final HeaderFieldName SERVER             = HeaderFieldName("Server");
+    public static final HeaderFieldName VARY               = HeaderFieldName("Vary");
+    public static final HeaderFieldName WWW_AUTHENTICATE   = HeaderFieldName("WWW-Authenticate");
+    public static final HeaderFieldName SET_COOKIE         = HeaderFieldName("Set-Cookie");
 
     public static HeaderFieldName register(String name) {
         final HeaderFieldName value = new HeaderFieldName(name);

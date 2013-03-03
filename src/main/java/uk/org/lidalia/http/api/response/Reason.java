@@ -4,7 +4,7 @@ import org.apache.commons.lang3.Validate;
 
 import uk.org.lidalia.http.api.Text;
 
-public final class Reason extends Text {
+public final class Reason extends Text<Reason> {
 
     public static Reason Reason(String reason) {
         return new Reason(reason);

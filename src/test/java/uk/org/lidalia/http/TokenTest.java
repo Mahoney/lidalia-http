@@ -15,7 +15,7 @@ import uk.org.lidalia.http.api.exception.IllegalTokenException;
 public class TokenTest {
 
     @Test
-    public void tokenCannotHaveNonUsAsciiCharacters() throws Throwable {
+    public void tokenCannotHaveNonUsAsciiCharacters() {
         for (byte i = -128; i < 0; i++) {
             final String constructorArgument = new String(new byte[]{i}, Charset.forName("ISO-8859-1"));
             assertExpectedIllegalArgumentExceptionThrown(constructorArgument);
@@ -23,7 +23,7 @@ public class TokenTest {
     }
 
     @Test
-    public void tokenCannotHaveControlCharacters() throws Throwable {
+    public void tokenCannotHaveControlCharacters() {
         for (byte i = 0; i <= 31; i++) {
             final String constructorArgument = new String(new byte[]{i}, Charset.forName("ISO-8859-1"));
             assertExpectedIllegalArgumentExceptionThrown(constructorArgument);
@@ -33,7 +33,7 @@ public class TokenTest {
     }
 
     @Test
-    public void tokenCannotBeEmpty() throws Throwable {
+    public void tokenCannotBeEmpty() {
         assertExpectedIllegalArgumentExceptionThrown("");
     }
 
@@ -45,7 +45,7 @@ public class TokenTest {
         };
 
     @Test
-    public void tokenCannotHaveSeparators() throws Throwable {
+    public void tokenCannotHaveSeparators() {
         for (int i = 0; i < SEPARATORS.length; i++) {
             final String constructorArgument = new String(new byte[]{SEPARATORS[i]}, Charset.forName("ISO-8859-1"));
             assertExpectedIllegalArgumentExceptionThrown(constructorArgument);
@@ -53,20 +53,20 @@ public class TokenTest {
     }
 
     @Test
-    public void tokenCanBeAnyOtherUsAsciiCharacters() throws Throwable {
+    public void tokenCanBeAnyOtherUsAsciiCharacters() {
         String constructorArgument = "!#$%&'*+-.0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ^_`abcdefghijklmnopqrstuvwxyz|~";
         Token token = new Token(constructorArgument);
         assertEquals(constructorArgument, token.toString());
     }
 
     @Test
-    public void tokenCanBeSingleCharacter() throws Throwable {
+    public void tokenCanBeSingleCharacter() {
         String constructorArgument = "a";
         Token token = new Token(constructorArgument);
         assertEquals(constructorArgument, token.toString());
     }
 
-    private void assertExpectedIllegalArgumentExceptionThrown(final String constructorArgument) throws Throwable {
+    private void assertExpectedIllegalArgumentExceptionThrown(final String constructorArgument) {
         IllegalTokenException exception = shouldThrow(IllegalTokenException.class, "Expected IllegalTokenException using constructor argument [" + constructorArgument + "]", new Callable<Void>() {
             @Override
             public Void call() throws Exception {

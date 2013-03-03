@@ -1,7 +1,7 @@
 package uk.org.lidalia.http.api.response;
 
 import static uk.org.lidalia.http.api.response.Reason.Reason;
-import static uk.org.lidalia.lang.RichOptional.fromNullable;
+import static com.google.common.base.Optional.fromNullable;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -14,7 +14,7 @@ import org.apache.commons.lang3.Validate;
 import uk.org.lidalia.lang.Immutable;
 import uk.org.lidalia.lang.WrappedValue;
 
-public final class Code extends WrappedValue<Integer> implements Immutable {
+public final class Code extends WrappedValue<Integer> implements Immutable<Code> {
 
     private static final ConcurrentMap<Integer, Code> codes = new ConcurrentHashMap<Integer, Code>();
 

@@ -15,7 +15,7 @@ import uk.org.lidalia.http.api.Text;
 public class TextTest {
 
     @Test
-    public void constructorThrowsIllegalArgumentExceptionOnControlCharacter() throws Throwable {
+    public void constructorThrowsIllegalArgumentExceptionOnControlCharacter() {
         final String string = new String(new byte[]{12}, Charset.forName("ISO-8859-1"));
         assertExceptionThrown(string);
     }
@@ -49,7 +49,7 @@ public class TextTest {
     }
 
     @Test
-    public void constructorRefusesCarriageReturnNotFollowedByWhitespace() throws Throwable {
+    public void constructorRefusesCarriageReturnNotFollowedByWhitespace() {
         assertExceptionThrown("Hello World\r  ");
         assertExceptionThrown("Hello World\n  ");
         assertExceptionThrown("Hello World\r\n");
@@ -61,7 +61,7 @@ public class TextTest {
         assertExceptionThrown("\r\n\t\rHello World");
     }
 
-    private void assertExceptionThrown(final String string) throws Throwable {
+    private void assertExceptionThrown(final String string) {
         IllegalArgumentException exception = shouldThrow(IllegalArgumentException.class, new Callable<Void>() {
             @Override
             public Void call() throws Exception {
