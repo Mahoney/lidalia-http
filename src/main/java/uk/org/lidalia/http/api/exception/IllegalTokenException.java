@@ -10,12 +10,17 @@ public class IllegalTokenException extends RichRuntimeException {
     private final String tokenString;
 
     public IllegalTokenException(String tokenString) {
-        this(tokenString, null);
+        super(makeMessage(tokenString));
+        this.tokenString = tokenString;
     }
 
     public IllegalTokenException(String tokenString, Throwable cause) {
-        super("[" + tokenString + "] is not a valid Token - must match " + Token.LEGAL_CHARS_STRING, cause);
+        super(makeMessage(tokenString), cause);
         this.tokenString = tokenString;
+    }
+
+    private static String makeMessage(String tokenString) {
+        return "[" + tokenString + "] is not a valid Token - must match " + Token.LEGAL_CHARS_STRING;
     }
 
     public String getTokenString() {

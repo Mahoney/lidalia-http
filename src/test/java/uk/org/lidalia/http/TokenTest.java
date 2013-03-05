@@ -67,11 +67,10 @@ public class TokenTest {
     }
 
     private void assertExpectedIllegalArgumentExceptionThrown(final String constructorArgument) {
-        IllegalTokenException exception = shouldThrow(IllegalTokenException.class, "Expected IllegalTokenException using constructor argument [" + constructorArgument + "]", new Callable<Void>() {
+        IllegalTokenException exception = shouldThrow(IllegalTokenException.class, "Expected IllegalTokenException using constructor argument [" + constructorArgument + "]", new Runnable() {
             @Override
-            public Void call() throws Exception {
+            public void run() {
                 new Token(constructorArgument);
-                return null;
             }
         });
         assertEquals("[" + constructorArgument + "] is not a valid Token - must match [a-zA-Z0-9!#\\$%&'\\*\\+\\-\\.\\^_`\\|~]+", exception.getMessage());
